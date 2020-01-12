@@ -1,0 +1,2 @@
+# LazySearch
+懒搜
