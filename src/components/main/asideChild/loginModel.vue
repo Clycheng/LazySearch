@@ -6,17 +6,17 @@
       </el-card>
     </div>
     <div class="readly-login-warp" :class="isLogin?'':'active'">
-      <el-card :body-style="{ padding: '0px' }">
+      <el-card class="register-card" shadow="always" :body-style="{ padding: '0px' }">
         <h3>懒搜 - lansou.com</h3>
-        <p>一个帮助开发者成长的社区</p>
-        <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="登录" name="first">
-            <div style="margin: 20px;"></div>
-            <el-input placeholder="请输入内容" prefix-icon="el-icon-info" v-model="userName"></el-input>
-            <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="passWord"></el-input>
-          </el-tab-pane>
-          <el-tab-pane label="注册" name="second">注册</el-tab-pane>
-        </el-tabs>
+        <p>一个帮助开发者解决bug的社区</p>
+        <el-input placeholder="用户名" prefix-icon="Lazy Lazylogin_user" v-model="userName"></el-input>
+        <el-input placeholder="密码" prefix-icon="Lazy Lazymima" v-model="passWord"></el-input>
+        <el-button class = "register" type="primary">注册</el-button>
+     <el-row class="other-login-warp">
+      <i class = "Lazy Lazyweixin4" style="color:#24DB5A"></i>
+      <i class = "Lazy Lazyqq1" style="color:#4A9AFD"></i>
+      <i class = "Lazy Lazygithubb" ></i>
+    </el-row>
       </el-card>
     </div>
   </div>
@@ -50,7 +50,7 @@ export default {
 }
 
 .el-card {
-  width: 100%;
+  width: 80%;
   display: none;
   border: none;
 }
@@ -69,5 +69,29 @@ p {
 }
 .el-tabs {
   padding: 10px;
+}
+.register-card input {
+  width: 80%;
+  margin-top: 15px;
+  margin-left: 5%;
+ 
+}
+.register-card span {
+  height: 135%;
+  left: 23px;
+}
+.register-card .register {
+  width: 80%;
+  margin-top: 15px;
+  margin-left: 5%;
+ 
+}
+.other-login-warp.el-row {
+  margin-top: 15px;
+}
+.other-login-warp.el-row i{
+  margin-left:14%;
+  font-size: 24px;
+  cursor: pointer;
 }
 </style>

@@ -2,6 +2,7 @@
   "name": "lansou",
   "version": "1.0.0",
   "description": "A Vue.js project",
+  "homepage": ".",
   "author": "cylecheng <1249587790@qq.com>",
   "private": true,
   "scripts": {
