@@ -2,7 +2,7 @@
   <div>
     <div class="not-login-warp" :class="isLogin?'active':''">
       <el-card :body-style="{ padding: '0px' }">
-        <h4>已登录</h4>
+        <h4><i class = ""></i></h4>
       </el-card>
     </div>
     <div class="readly-login-warp" :class="isLogin?'':'active'">
