@@ -11,7 +11,7 @@
             <img :src="item.headUrl" alt />
           </el-aside>
           <el-main>
-            <h4>{{item.autor}}</h4>
+            <h4><router-link to="作者中心">{{item.autor}}</router-link></h4>
             <p>{{item.explain}}</p>
           </el-main>
         </el-container>
@@ -37,7 +37,14 @@ export default {
           explain: "简介简介简介简介简介简介简介",
           headUrl:
             "https://dss3.baidu.com/-rVXeDTa2gU2pMbgoY3K///it///u=3499274531,2537514426&fm=202"
+        },
+        {
+          autor: "Clydechen21312312312g",
+          explain: "简介简介简介简介简介简介简介",
+          headUrl:
+            "https://dss3.baidu.com/-rVXeDTa2gU2pMbgoY3K///it///u=3499274531,2537514426&fm=202"
         }
+      
       ]
     };
   }
@@ -49,8 +56,13 @@ export default {
   width: 80%;
   background: white;
 }
-h4 {
+h3 {
   padding-top: 10px;
+  font-weight: bold;
+}
+h4{
+  width: 100%;
+  overflow: hidden;
   font-weight: bold;
 }
 .el-divider--horizontal {

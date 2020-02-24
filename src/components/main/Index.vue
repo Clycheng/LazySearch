@@ -8,6 +8,7 @@
       <el-aside width="300px">
           <AsideLoginModel></AsideLoginModel>
           <Billboard></Billboard>
+          <About></About>
       </el-aside>
     </el-container>
   </div>
@@ -19,6 +20,7 @@ import Breadcrumb from "./common/Breadcrumb";
 import MainTab from './mainChild/MainTab'
 import AsideLoginModel from './asideChild/loginModel'
 import Billboard from './asideChild/Billboard'
+import About from './asideChild/About'
 export default {
   name: "Main",
   components: {
@@ -26,7 +28,8 @@ export default {
     Banner,
     MainTab,
     AsideLoginModel,
-    Billboard
+    Billboard,
+    About
   }
 };
 </script>

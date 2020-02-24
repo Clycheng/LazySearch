@@ -1,0 +1,98 @@
+<template>
+<div class = "edit-warp">
+  <div class = "title">
+      <input type="text" v-model="title">
+  </div>
+  <div id = "Edit">
+      
+  </div>
+  <button @click  = "preview">预览效果</button>
+  <button @click= "submit">提交</button>
+  </div>
+</template>
+
+<script>
+import E from "wangeditor";
+export default {
+  name: "NewArticle",
+  data() {
+    return {
+      editor: null,
+      editorContent: this.$store.state.Edit.NewArticle.content,//转换之后的html
+      title: this.$store.state.Edit.NewArticle.title
+     
+    };
+  },
+  components:{
+    
+  },
+  methods: {
+    change(value, render) {
+      // render 为 markdown 解析后的结果[html]
+      this.html = render;
+    },
+    submit(){
+    },
+    preview(){
+     this.$router.push({
+       name:'Details',
+        params: {id:"preview"}
+     })
+    }
+  },
+  mounted() {
+    this.editor = new E(Edit);
+    // 编辑器的事件，每次改变会获取其html内容
+    this.editor.customConfig.onchange = html => {
+      this.editorContent = html;
+      let obj = {
+        title:this.title,
+        content:this.editorContent
+      }
+      this.$store.commit("ChangeNewArticle",obj)
+    //     console.log(this.editorContent)
+    //   this.catchData(this.editorContent); // 把这个html通过catchData的方法传入父组件
+    };
+    this.editor.customConfig.menus = [
+      // 菜单配置
+      "head", // 标题
+      "bold", // 粗体
+      "fontSize", // 字号
+      "fontName", // 字体
+      "italic", // 斜体
+      "underline", // 下划线
+      "strikeThrough", // 删除线
+      "foreColor", // 文字颜色
+      "backColor", // 背景颜色
+      "link", // 插入链接
+      "list", // 列表
+      "justify", // 对齐方式
+      "quote", // 引用
+      "emoticon", // 表情
+      "image", // 插入图片
+      "table", // 表格
+      "code", // 插入代码
+      "undo", // 撤销
+      "redo" // 重复
+    ];
+    this.editor.create();
+     this.editor.txt.html(this.$store.state.Edit.NewArticle.content)
+  }
+};
+</script>
+
+<style  scoped>
+.title input {
+  width: 100%;
+  height: 80px;
+  background: #F4F5F5;
+  font-size: 45px;
+  font-weight: bold;
+}
+.edit-warp{
+  margin-top: 35px;
+}
+#Edit .w-e-text-container {
+  height: 700px;
+}
+</style>

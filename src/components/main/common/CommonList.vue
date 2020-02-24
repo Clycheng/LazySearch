@@ -1,13 +1,13 @@
 <template>
   <div>
-    <ul>
-      <li v-for="(item,index) in list" :key="index" class="list-item">
+    <ul class="infinite-list"  infinite-scroll-distance	="1010px" v-infinite-scroll="load" style="overflow:auto">
+      <li v-for="(item,index) in list" :key="index" class="list-item infinite-list-item"  >
         <el-container>
           <el-aside width="200px">
             <img class="aside-img" :src="item.ownerImg" alt />
           </el-aside>
           <el-main>
-            <h2>{{item.title}}</h2>
+            <router-link :to='{ name: "Details", query: { id: item.id }}'> <h2>{{item.title}}</h2></router-link>
             <p>{{innerSubstr(item.introduction)}}</p>
             <div class = "details-warp">
               <span style = "color:#66B1FF;font-size:12px"><i class = "Lazy Lazyyuedu1"  ></i>{{item.reader}}</span>
@@ -37,7 +37,7 @@ export default {
             "简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介",
           owner: "admin",
           star: "1",
-          id: 5,
+          id: 1,
           reader: "120",
           ReplyNumber: "12",
           ownerImg:
@@ -50,7 +50,7 @@ export default {
             "简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介",
           owner: "admin",
           star: "1",
-          id: 5,
+          id: 2,
           reader: "120",
           ReplyNumber: "12",
           ownerImg:
@@ -63,7 +63,7 @@ export default {
             "简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介",
           owner: "admin",
           star: "1",
-          id: 5,
+          id: 3,
           reader: "120",
           ReplyNumber: "12",
           ownerImg:
@@ -73,7 +73,7 @@ export default {
     };
   },
   beforeMount(){
-      this.list[0].owner = this.$parent._props.name
+    console.log(this.$attrs.cat.type,this.$attrs.cat.name)
   },
   computed: {
     // titleSubstr(e) {
@@ -83,17 +83,13 @@ export default {
     //     },
     innerSubstr(e) {
       return function(e) {
-        return (e = e.substr(10, 50) + "...");
+        return (e = e.substr(10, 100) + "...");
       };
     }
   },
   methods: {
-    load() {
-      this.loading = true;
-      setTimeout(() => {
-        this.count += 2;
-        this.loading = false;
-      }, 2000);
+    load(){
+
     }
   }
 };
@@ -119,6 +115,7 @@ export default {
   text-decoration: underline;
 }
 .list-item p {
+  margin-top: 2%;
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
   font-size: 12px;
@@ -132,7 +129,7 @@ export default {
   -webkit-box-orient: vertical;
 }
 .el-main {
-  padding: 0;
+  padding: 25px;
   margin-left: 15px;
 }
 .el-aside {
@@ -157,6 +154,7 @@ export default {
 }
 
 .details-warp{
+  margin-top: 2%;
   max-height: 25px;
 }
 .details-warp span{

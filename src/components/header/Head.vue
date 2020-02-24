@@ -8,7 +8,7 @@
       </el-col>
       <el-col :span="8">
         <div class="search-warp">
-          <el-input size="small"  placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchInput"></el-input>
+          <el-input size="small" blur = "search"  @change = "Onchange" placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchInput"></el-input>
         </div>
       </el-col>
       <el-col :span="8">
@@ -32,7 +32,15 @@ export default {
       Menu
   },
   methods:{
-    
+    Onchange(){
+      this.$router.push(
+        {name:"Search",
+          params:{
+            val:this.searchInput
+          }
+        }
+      )
+    }
   }
 };
 </script>

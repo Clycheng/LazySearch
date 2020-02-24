@@ -6,13 +6,15 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './icon/iconfont.css'
-
+import store from './store/index'
+import wangeditor from 'wangeditor'
 Vue.config.productionTip = false
-Vue.use(ElementUI)
+Vue.use(ElementUI,wangeditor)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

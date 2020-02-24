@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="not-login-warp" :class="isLogin?'active':''">
+    <div class="not-login-warp" :class="this.$store.state.header.IsLogin?'active':''">
       <el-card :body-style="{ padding: '0px' }">
         <h4><i class = ""></i></h4>
       </el-card>
     </div>
-    <div class="readly-login-warp" :class="isLogin?'':'active'">
+    <div class="readly-login-warp" :class="this.$store.state.header.IsLogin?'':'active'">
       <el-card class="register-card" shadow="always" :body-style="{ padding: '0px' }">
         <h3>懒搜 - lansou.com</h3>
         <p>一个帮助开发者解决bug的社区</p>
@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       currentDate: new Date(),
-      isLogin: false,
+      isLogin: this.$store.state.header.IsLogin,
       activeName: "first",
       userName: "",
       passWord: ""
