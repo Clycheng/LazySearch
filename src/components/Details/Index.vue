@@ -19,6 +19,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Header from "../header/Head";
 import Article from './Child/Article';
 import Billboard from '../main/asideChild/Billboard';

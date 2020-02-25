@@ -19,6 +19,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Menu from './Menu'
 export default {
   name: "Header",

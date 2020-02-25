@@ -5,16 +5,12 @@
         v-loading="loading"
         class="InfiniteScroll"
         @scroll.passive="load($event)"
-        style="height:550px;"
-      >
+        style="height:550px;">
         <li v-for="(item,index) in count" :key="index">
           <div class = "left-warp">
                  <el-avatar :size="size" :src="circleUrl"></el-avatar>
           </div>
-          <div class = "right-warp">
-
-          </div>
-     
+          <div class = "right-warp"></div>
         </li>
         <div
           v-loading="loading"
@@ -29,6 +25,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import { setTimeout } from "timers";
 export default {
   name: "FollowList",

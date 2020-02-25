@@ -17,6 +17,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Header from "../header/Head";
 import CommonList from "../main/common/CommonList";
 import Aside from './Child/Aside';

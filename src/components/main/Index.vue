@@ -15,6 +15,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Banner from "./Banner";
 import Breadcrumb from "./common/Breadcrumb";
 import MainTab from './mainChild/MainTab'

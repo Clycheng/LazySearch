@@ -40,6 +40,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import CommonList from "../common/CommonList";
 export default {
   name: "MainTab",

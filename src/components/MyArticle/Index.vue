@@ -35,6 +35,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Header from "../header/Head";
 import MainTab from './Child/MainTab'
 export default {

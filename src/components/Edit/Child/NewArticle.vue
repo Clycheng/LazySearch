@@ -1,17 +1,16 @@
 <template>
 <div class = "edit-warp">
   <div class = "title">
-      <input type="text" v-model="title">
+      <input type="text" v-model="title" placeholder="请输入标题">
   </div>
-  <div id = "Edit">
-      
-  </div>
+  <div id = "Edit"></div>
   <button @click  = "preview">预览效果</button>
   <button @click= "submit">提交</button>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import E from "wangeditor";
 export default {
   name: "NewArticle",
@@ -86,8 +85,7 @@ export default {
   width: 100%;
   height: 80px;
   background: #F4F5F5;
-  font-size: 45px;
-  font-weight: bold;
+  font-size: 30px;
 }
 .edit-warp{
   margin-top: 35px;

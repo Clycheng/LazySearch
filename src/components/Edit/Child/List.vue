@@ -44,64 +44,65 @@
 </template>
 
 <script>
+/* eslint-disable */
 // import CommonList from '../../main/common/CommonList'
 export default {
   name: "List",
   data() {
     return {
-       tableData: [{
-          date: '2016-05-03',
-          autor: '王小虎',
-          tag: '上海',
-          city: '普陀区',
-          title: '上海市普陀区金沙江路 1518 弄',
-          ID: 200333
-        }, {
-          date: '2016-05-02',
-          autor: '王小虎',
-          tag: '上海',
-          city: '普陀区',
-          title: '上海市普陀区金沙江路 1518 qwd海市普陀区金沙江路 1518 qwdqw弄海市普陀区金沙江路 1518 qwdqw弄qw弄',
-          ID: 200333
-        }, {
-          date: '2016-05-04',
-          autor: '王小虎',
-          tag: '上海',
-          city: '普陀区',
-          title: '上海市普陀区金沙江路 1518 弄',
-          ID: 200333
-        }, {
-          date: '2016-05-01',
-          autor: '王小虎',
-          tag: '上海',
-          city: '普陀区',
-          title: '上海市普陀区金沙江路 1518 弄',
-          ID: 200333
-        },
-         {
-          date: '2016-05-01',
-          autor: '王小虎',
-          tag: '上海',
-          city: '普陀区',
-          title: '上海市普陀区金沙江路 1518 弄',
-          ID: 200333
-        },
-         {
-          date: '2016-05-01',
-          autor: '王小虎',
-          tag: '上海',
-          city: '普陀区',
-          title: '上海市普陀区金沙江路 1518 弄',
-          ID: 200333
-        },
-         {
-          date: '2016-05-01',
-          autor: '王小虎',
-          tag: '上海',
-          city: '普陀区',
-          title: '上海市普陀区金沙江路 1518 弄',
-          ID: 200333
-        }]
+      tableData: [{
+        date: '2016-05-03',
+        autor: '王小虎',
+        tag: '上海',
+        city: '普陀区',
+        title: '上海市普陀区金沙江路 1518 弄',
+        ID: 200333
+      }, {
+        date: '2016-05-02',
+        autor: '王小虎',
+        tag: '上海',
+        city: '普陀区',
+        title: '上海市普陀区金沙江路 1518 qwd海市普陀区金沙江路 1518 qwdqw弄海市普陀区金沙江路 1518 qwdqw弄qw弄',
+        ID: 200333
+      }, {
+        date: '2016-05-04',
+        autor: '王小虎',
+        tag: '上海',
+        city: '普陀区',
+        title: '上海市普陀区金沙江路 1518 弄',
+        ID: 200333
+      }, {
+        date: '2016-05-01',
+        autor: '王小虎',
+        tag: '上海',
+        city: '普陀区',
+        title: '上海市普陀区金沙江路 1518 弄',
+        ID: 200333
+      },
+      {
+        date: '2016-05-01',
+        autor: '王小虎',
+        tag: '上海',
+        city: '普陀区',
+        title: '上海市普陀区金沙江路 1518 弄',
+        ID: 200333
+      },
+      {
+        date: '2016-05-01',
+        autor: '王小虎',
+        tag: '上海',
+        city: '普陀区',
+        title: '上海市普陀区金沙江路 1518 弄',
+        ID: 200333
+      },
+      {
+        date: '2016-05-01',
+        autor: '王小虎',
+        tag: '上海',
+        city: '普陀区',
+        title: '上海市普陀区金沙江路 1518 弄',
+        ID: 200333
+      }]
     };
   },
   components: {

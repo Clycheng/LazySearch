@@ -1,21 +1,34 @@
 <template>
   <div>
-    <ul class="infinite-list"  infinite-scroll-distance	="1010px" v-infinite-scroll="load" style="overflow:auto">
-      <li v-for="(item,index) in list" :key="index" class="list-item infinite-list-item"  >
+    <ul
+      class="infinite-list"
+      infinite-scroll-distance="1010px"
+      v-infinite-scroll="load"
+      style="overflow:auto"
+    >
+      <li v-for="(item,index) in list" :key="index" class="list-item infinite-list-item">
         <el-container>
           <el-aside width="200px">
             <img class="aside-img" :src="item.ownerImg" alt />
           </el-aside>
           <el-main>
-            <router-link :to='{ name: "Details", query: { id: item.id }}'> <h2>{{item.title}}</h2></router-link>
+          <router-link :to='{ name: "Details", query: { id: item.id }}'> <h2>{{item.title}}</h2></router-link>
             <p>{{innerSubstr(item.introduction)}}</p>
-            <div class = "details-warp">
-              <span style = "color:#66B1FF;font-size:12px"><i class = "Lazy Lazyyuedu1"  ></i>{{item.reader}}</span>
-              <router-link to = "#">{{item.owner}}</router-link>
-              <span style = "color:#B4BBCE;font-size:12px"><i class = "Lazy Lazypinglun2"  ></i>{{item.ReplyNumber}}</span>
-              <span style = "color:#B4BBCE;font-size:12px"><i class = "Lazy Lazydianzan1"  ></i>{{item.star}}</span>
+            <div class="details-warp">
+              <span style="color:#66B1FF;font-size:12px">
+                <i class="Lazy Lazyyuedu1"></i>
+                {{item.reader}}
+              </span>
+              <router-link to="#">{{item.owner}}</router-link>
+              <span style="color:#B4BBCE;font-size:12px">
+                <i class="Lazy Lazypinglun2"></i>
+                {{item.ReplyNumber}}
+              </span>
+              <span style="color:#B4BBCE;font-size:12px">
+                <i class="Lazy Lazydianzan1"></i>
+                {{item.star}}
+              </span>
             </div>
-            
           </el-main>
         </el-container>
       </li>
@@ -24,6 +37,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: "CommonList",
   data() {
@@ -72,8 +86,8 @@ export default {
       ]
     };
   },
-  beforeMount(){
-    console.log(this.$attrs.cat.type,this.$attrs.cat.name)
+  beforeMount() {
+    console.log(this.$attrs.cat.type, this.$attrs.cat.name);
   },
   computed: {
     // titleSubstr(e) {
@@ -88,9 +102,7 @@ export default {
     }
   },
   methods: {
-    load(){
-
-    }
+    load() {}
   }
 };
 </script>
@@ -106,7 +118,7 @@ export default {
 }
 .list-item h2 {
   width: 90%;
-  color: #2F2F2F;
+  color: #2f2f2f;
   font-weight: bold;
   font-size: 17px;
 }
@@ -153,21 +165,20 @@ export default {
     max-width: 150px; */
 }
 
-.details-warp{
+.details-warp {
   margin-top: 2%;
   max-height: 25px;
 }
-.details-warp span{
+.details-warp span {
   letter-spacing: 1px;
   margin-left: 15px;
 }
-.details-warp span i{
+.details-warp span i {
   font-size: 12px;
-  
 }
 .details-warp a {
   margin-left: 15px;
   font-size: 12px;
-  color: #B4BBCE;
+  color: #b4bbce;
 }
 </style>

@@ -13,8 +13,14 @@
   <el-main>
       <div class = "autor-message">
           <p class = "autor-name">
-        <router-link to="#">每日心选</router-link>
+          <router-link to="#">每日心选</router-link>
           <el-button size="mini" round>关注</el-button>
+          <!-- 评分 -->
+          <el-rate
+          v-model="value2"
+          :colors="colors">
+        </el-rate>
+          <!-- 评分 -->
       </p>
       <p class = "Interaction">
           <em>2020.01.30 11:44:02</em>
@@ -25,16 +31,30 @@
   </el-main>
 </el-container>
     <div v-html = "content" id = "connet-warp"></div>
+<!-- 标记 -->
+  <el-badge :value="3" class="item"  type="primary">
+    <el-button size="small">回复</el-button>
+  </el-badge>
+  <el-badge :value="1" class="item" type="primary">
+    <el-button size="small">评论</el-button>
+  </el-badge>
+  <!-- 标记 -->
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: "Article",
   data() {
     return {
         title:"",
-      content: ""
+      content: "",
+      // 评分
+       value1: null,
+        value2: null,
+        colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
+      // 评分
     };
   },
   props:["category"],
@@ -140,5 +160,8 @@ a {
   display: block;
   width: 100%;
   background: red;
+}
+.item {
+  margin:10px 40px 30px 20px;
 }
 </style>

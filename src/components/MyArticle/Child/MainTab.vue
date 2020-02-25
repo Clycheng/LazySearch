@@ -29,6 +29,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import CommonList from '../../main/common/CommonList'
 import FollowList from './FollowList'
 export default {

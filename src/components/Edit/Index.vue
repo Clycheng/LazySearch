@@ -26,6 +26,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name:"Edit",
   data(){
@@ -66,7 +67,10 @@ export default {
   height: 750px;
 }
 .el-aside{
-  background:#A6A9AD;
+  background:rgb(158, 193, 240);
+}
+.el-main{
+  background: rgb(238, 238, 238)
 }
 .el-button--default.is-round{
     display: block;
@@ -90,14 +94,14 @@ h3 i{
 }
 h3:hover{
   cursor: pointer;
-  background: rgb(203, 207, 212)
+  background: rgb(248, 249, 250)
 }
  .head {
         line-height: 60px;
         text-align: center;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 45px;
-        color: rgb(223, 222, 221);
+        color: rgb(200, 213, 250);
         text-shadow: 0 1px 0 #fff
     }
 </style>

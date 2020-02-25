@@ -12,6 +12,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Header from './header/Head'
 import Main from './main/Index'
 export default {

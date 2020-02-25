@@ -23,6 +23,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import CommnList from './CommnList'
 export default {
   name: "Aside",
