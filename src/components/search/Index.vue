@@ -21,7 +21,6 @@
 import Header from "../header/Head";
 import CommonList from "../main/common/CommonList";
 import Aside from './Child/Aside';
-
 export default {
   name: "Search",
   data() {

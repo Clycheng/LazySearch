@@ -63,11 +63,11 @@ export default {
 
 <style scoped>
 .el-container{
-  padding:25px;
   height: 750px;
 }
 .el-aside{
-  background:rgb(158, 193, 240);
+  background:#404040;
+  color: #f2f2f2;
 }
 .el-main{
   background: rgb(238, 238, 238)
@@ -77,6 +77,9 @@ export default {
     width: 55%;
     margin: 0 auto;
     margin-top: 15px;
+    border: 2px solid rgb(200, 213, 250);
+    background: #404040;
+    color: rgb(200, 213, 250);
 }
 h3{
   box-sizing: border-box;
@@ -94,14 +97,14 @@ h3 i{
 }
 h3:hover{
   cursor: pointer;
-  background: rgb(248, 249, 250)
+  background: #777777;
 }
  .head {
         line-height: 60px;
         text-align: center;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 45px;
-        color: rgb(200, 213, 250);
+        color: #404040;
         text-shadow: 0 1px 0 #fff
     }
 </style>

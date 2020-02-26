@@ -51,28 +51,14 @@
         </div>
         <div class="club-date-select-1YFaw_0">
           <h4 class="club-subtitle-3hv93_0">会员有效期</h4>
-          <div class="club-date-select-item-32HBM_0 club-date-select-item-active-3oMot_0">
+            <div class="club-date-select-item-32HBM_0" v-for="(item,index) in relations" :key="index" :class="{'club-date-select-item-active-3oMot_0':currentSort==index}" @click="active(index)">
             <div class="club-date-select-item-content-1ozGJ_0">
-              <span class="time-3tZ3H_0">月度（31天）</span> |
-              <span class="price-1nCxv_0">¥18</span>
+              <span class="time-3tZ3H_0">{{item.date}}</span> |
+              <span class="price-1nCxv_0">{{item.price}}</span>
             </div>
             <i class="iconfont ic-selected"></i>
           </div>
-          <div class="club-date-select-item-32HBM_0">
-            <div class="club-date-select-item-content-1ozGJ_0">
-              <span class="time-3tZ3H_0">季度（93天）</span> |
-              <span class="price-1nCxv_0">¥50</span>
-            </div>
-            <!---->
-          </div>
-          <div class="club-date-select-item-32HBM_0">
-            <div class="club-date-select-item-content-1ozGJ_0">
-              <span class="time-3tZ3H_0">年度（372天）</span> |
-              <span class="price-1nCxv_0">¥188</span>
-            </div>
-            <!---->
-          </div>
-          <button class="club-buy-btn-2N9Tp_0 club-buy-btn-bronze-3GBra_0">立即购买</button>
+          <button class="club-buy-btn-2N9Tp_0 club-buy-btn-bronze-3GBra_0" @click="btnpay">立即购买</button>
         </div>
         <div class="club-privilege-1bZZN_0">
           <h4 class="club-subtitle-3hv93_0">
@@ -185,14 +171,38 @@
 export default {
   name: "VIP",
   data() {
-    return {};
+  return{
+    relations: [
+      {date:'月度（31天）',price:'¥18'},
+      {date:'季度（93天）',price:'¥50'},
+      {date:'年度（372天）',price:'¥188'}
+    ],
+    currentSort:0,
+  }
   },
   components: {},
-  methods: {}
+  methods: {
+    active(index) {
+       this.currentSort = index;
+    },
+    btnpay(){
+        const weiXinUrl = require("../../assets/hao.png");
+        const aLiUrl = require("../../assets/lei.png");
+        this.$alert("<strong><img src="+ weiXinUrl + " width=192px height=192px><img src=" + aLiUrl + " width=192px height=192px></strong>", '请扫描下方二维码进行支付：', {
+          dangerouslyUseHTMLString: true
+        }).then(action => {
+        
+        });
+    }
+  }
 };
 </script>
 
 <style scoped>
     @import url('../../assets/css/vip01.css');
     @import url('../../assets/css/vip02.css');
+    .ic-selected{
+      color: #e4e1e1;
+    font-size: 4.266667vw;
+    }
 </style>

@@ -4,6 +4,7 @@
     <el-header>
         <Header></Header>
     </el-header>
+    <div class="bai"></div>
     <el-main>
         <Main/>
     </el-main>
@@ -32,9 +33,19 @@ export default {
 <style>
  .el-header{
      padding:  0;
-     text-align: center
+     text-align: center;
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     z-index: 9999;
  }
  .el-main{
      padding: 35px;
+ }
+ .bai{
+     width: 100%;
+     height: 40px;
+     background: #ffffff;
  }
 </style>
