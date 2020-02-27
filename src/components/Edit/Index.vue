@@ -48,8 +48,7 @@ export default {
   },
   methods:{
     Back(){
-      // this.$router.push('/')
-      this.$router.go(-1)
+      this.$router.push('/')
     },
     Jump(e){
       if(this.$route.fullPath == "/Edit/"+e){
@@ -112,12 +111,13 @@ h3:hover{
   background: #777777;
 }
  .head {
+   width: 1300px;
    line-height: 60px;
   text-align: center;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 45px;
   color: #404040;
   text-shadow: 0 1px 0 #fff;
-  margin:10px auto;
+  margin-left: 300px;
 }
 </style>

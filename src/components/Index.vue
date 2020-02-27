@@ -41,7 +41,7 @@ export default {
      z-index: 9999;
  }
  .el-main{
-     padding: 35px;
+     padding: 60px;
  }
  .bai{
      width: 100%;

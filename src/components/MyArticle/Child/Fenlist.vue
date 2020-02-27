@@ -16,8 +16,8 @@
               </a>
               <div class="info">
                 <a class="name" href="/u/37dc24d75db2">{{item.username}}</a>
-                <i class="el-icon-female"></i>
-                <!-- <i class="el-icon-male"></i> -->
+                <!-- <i class="el-icon-female"></i> -->
+                <i class="el-icon-male"></i>
                 <div class="meta">
                   <span>关注 {{item.guan}}</span>
                   <span>粉丝 {{item.fensi}}</span>
@@ -25,14 +25,13 @@
                 </div>
                 <div class="meta">写了 {{item.zinum}} 字，获得了 {{item.huan}} 个喜欢</div>
               </div>
-              <a class="btn btn-default following">
+              <!-- <a class="btn btn-default following">
                 <i class="el-icon-check"></i>
                 <span>已关注</span>
-              </a>
-              <!-- <a class="btn btn-default following">
-                <i class="el-icon-close"></i>
-                <span>取消关注</span>
               </a> -->
+              <a class="btn btn-default following">
+                <span>未关注</span>
+              </a>
             </li>
           </ul>
         </div>
@@ -44,16 +43,16 @@
 /* eslint-disable */
 import { setTimeout } from "timers";
 export default {
-  name: "FollowList",
+  name: "Fenlist",
   data() {
     return {
        author:[
-         {username:'捡书的女孩',guan:'1253',fensi:'8545',wen:'8965',zinum:'98658985',huan:'52148'},
-         {username:'牛逼的王大锤',guan:'3452',fensi:'456',wen:'567',zinum:'256245615',huan:'3456'},
-         {username:'骚气的阿萨德',guan:'34',fensi:'4135',wen:'589',zinum:'134645',huan:'3242'},
+         {username:'我爱吃西红柿',guan:'1253',fensi:'8545',wen:'8965',zinum:'98658985',huan:'52148'},
+         {username:'天产土豆',guan:'3452',fensi:'456',wen:'567',zinum:'256245615',huan:'3456'},
+         {username:'阿豪',guan:'34',fensi:'4135',wen:'589',zinum:'134645',huan:'3242'},
          {username:'唐家三少',guan:'234',fensi:'6546',wen:'4326',zinum:'134534236',huan:'35341'},
-         {username:'张浩',guan:'124',fensi:'784',wen:'72455',zinum:'256245156',huan:'3543'},
-         {username:'晓磊',guan:'6432',fensi:'342',wen:'5754',zinum:'324671',huan:'41351'},
+         {username:'王大锤他哥',guan:'124',fensi:'784',wen:'72455',zinum:'256245156',huan:'3543'},
+         {username:'帙卷浩繁',guan:'6432',fensi:'342',wen:'5754',zinum:'324671',huan:'41351'},
        ]
     };
   },

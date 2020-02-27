@@ -21,6 +21,11 @@
       <span slot="footer" class="dialog-footer">
         <!-- <el-button type="primary" @click="centerDialogVisible==false">登 录</el-button> -->
         <el-button type="primary" @click="loginok(formLabelAlign)">登 录</el-button>
+        <el-row class="other-login-warp">
+          <i class = "Lazy Lazyweixin4" style="color:#24DB5A"></i>
+          <i class = "Lazy Lazyqq1" style="color:#4A9AFD"></i>
+          <i class = "Lazy Lazygithubb" ></i>
+        </el-row>
       </span>
     </el-dialog>
   </div>
@@ -78,5 +83,16 @@ export default {
 .dialog-footer .el-button--primary {
   display: block;
   width: 100%;
+}
+.other-login-warp.el-row {
+  width: 170px;
+  display:flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+.other-login-warp.el-row i{
+  margin-left:20%;
+  font-size: 25px;
+  cursor: pointer;
 }
 </style>

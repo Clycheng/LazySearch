@@ -45,7 +45,7 @@
     <div class="connet">
       <p>用代码重塑人生</p>
       <p>用文章改变生活</p>
-      <p>--懒搜科技</p>
+      <p>----懒搜科技</p>
     </div>
   </div>
 </template>
@@ -72,12 +72,14 @@ export default {
   font-size: 30px;
   color: #000000;
   text-shadow: 1px 1px 1px #111;
+  position: relative;
+  left: 100px;
 }
 p {
   padding-top: 20px;
 }
 .connet p:nth-child(3) {
   font-size: 25px;
-  padding-right: 200px;
+  float: right;
 }
 </style>

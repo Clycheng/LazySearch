@@ -25,7 +25,7 @@ export default {
 
 <style scoped>
 .warp {
-    width: 80%;
+    width: 100%;
     margin-top: 25px;
 }
 span{

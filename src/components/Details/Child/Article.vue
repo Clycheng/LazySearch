@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :model="pin">
     <div class="warp">
       <h1>{{title}}</h1>
       <el-container class="autor">
@@ -78,11 +78,11 @@
       <h3 class="QxT4hD">
         <div class="_10KzV0">
           <span>全部评论</span>
-          <span class="_2R7vBo">2</span>
+          <span class="_2R7vBo">{{pin.length}}</span>
         </div>
       </h3>
       <!-- 用户评论 -->
-      <div class="_2gPNSa">
+      <div class="_2gPNSa" v-for="(item,index) in pin" :key="index">
         <div class="_2IUqvs _3uuww8" id="comment-54200911">
           <a class="_1OhGeD" href="/u/5330826245e3" target="_blank" rel="noopener noreferrer">
             <img
@@ -93,13 +93,13 @@
           </a>
           <div class="_1K9gkf">
             <div class="_23G05g">
-              <a class="_1OhGeD" href="/u/5330826245e3" target="_blank" rel="noopener noreferrer">听泽</a>
+              <a class="_1OhGeD" href="/u/5330826245e3" target="_blank" rel="noopener noreferrer">{{item.username}}</a>
             </div>
             <div class="_1xqkrI">
-              <span>2楼</span>
-              <time datetime="2020-02-26T09:27:12.000Z">02.26 17:27</time>
+              <span>{{item.num}}楼</span>
+              <time datetime="2020-02-26T09:27:12.000Z">{{item.time}}</time>
             </div>
-            <div class="_2bDGm4">写的很好，才女👍</div>
+            <div class="_2bDGm4">{{item.text}}</div>
             <div class="_2ti5br">
               <div class="_3MyyYc">
                 <span class="_2GXD2V _1Jvkh4" v-show="!showCommentInput" @click="showCommentInput = !showCommentInput">
@@ -138,6 +138,11 @@ export default {
       colors: ["#99A9BF", "#F7BA2A", "#FF9900"],
       // 评分
       showCommentInput:false,
+      pin:[
+        {username:'文泽',num:'1',time:'02.26 17:27',text:'写的很好，才女👍'},
+        {username:'张浩',num:'2',time:'02.27 18:25',text:'你特娘的太有才了'},
+        {username:'晓磊',num:'3',time:'02.27 20:03',text:'太好了写的，真不错啊。'},
+      ]
     };
   },
   props: ["category"],

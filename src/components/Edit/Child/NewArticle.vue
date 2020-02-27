@@ -1,5 +1,14 @@
 <template>
 <div class = "edit-warp">
+  <!-- 发布文章选择分类 -->
+<div class="block">
+  <span class="demonstration">选择文章分类</span>
+  <el-cascader
+    v-model="value"
+    :options="options"
+    @change="handleChange"></el-cascader>
+</div>
+  <!-- 发布文章选择分类 -->
   <div class = "title">
       <input type="text" v-model="title" placeholder="请输入标题">
   </div>
@@ -18,8 +27,13 @@ export default {
     return {
       editor: null,
       editorContent: this.$store.state.Edit.NewArticle.content,//转换之后的html
-      title: this.$store.state.Edit.NewArticle.title
-     
+      title: this.$store.state.Edit.NewArticle.title,
+      options: [
+          {value: '1',label: '前端',},
+          {value: '2',label: '后端',},
+          {value: '3',label: '安卓',},
+          {value: '4',label: 'ios',},
+      ]
     };
   },
   components:{
@@ -135,5 +149,9 @@ export default {
     background: #54a2eb;
     color: rgb(255, 255, 255);
     cursor:pointer;
+}
+.block{
+  float: right;
+  margin-bottom: 30px;
 }
 </style>

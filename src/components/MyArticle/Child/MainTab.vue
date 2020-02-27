@@ -22,7 +22,8 @@
       <el-tab-pane name = "Fans">
         <span slot="label">
           <i class="Lazy Lazyfensi1"></i> 我的粉丝
-        </span>\
+        </span>
+        <Fenlist></Fenlist>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -32,6 +33,7 @@
 /* eslint-disable */
 import CommonList from '../../main/common/CommonList'
 import FollowList from './FollowList'
+import Fenlist from './Fenlist'
 export default {
   name: "MainTab",
   data() {
@@ -46,7 +48,8 @@ export default {
   },
   components:{
       CommonList,
-      FollowList
+      FollowList,
+      Fenlist
   }
 };
 </script>

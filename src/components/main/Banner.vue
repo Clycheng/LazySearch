@@ -1,7 +1,16 @@
 <template>
-     <el-carousel :interval="4000" type="card" height="400px">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
+  <el-carousel :interval="4000" type="card" height="400px">
+    <el-carousel-item class="bannerimg">
+      <img src="../../assets/wen1.jpeg" alt="">
+    </el-carousel-item>
+    <el-carousel-item class="bannerimg">
+      <img src="../../assets/banner1.png" alt="">
+    </el-carousel-item>
+    <el-carousel-item class="bannerimg">
+      <img src="../../assets/banner2.jpg" alt="">
+    </el-carousel-item>
+    <el-carousel-item class="bannerimg">
+      <img src="../../assets/banner3.jpg" alt="">
     </el-carousel-item>
   </el-carousel>
 </template>
@@ -9,7 +18,12 @@
 <script>
 /* eslint-disable */
 export default {
-    name:"Banner"
+    name:"Banner",
+    data(){
+      return{
+        banner:[],
+      }
+    }
 }
 </script>
 
@@ -28,5 +42,9 @@ export default {
   
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
+  }
+  .bannerimg  img{
+    width: 100%;
+    height: 100%;
   }
 </style>

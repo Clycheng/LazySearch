@@ -40,6 +40,13 @@
       </template>
     </el-table-column>
   </el-table>
+  <!-- 分页 -->
+  <el-pagination
+  background
+  layout="prev, pager, next"
+  :total="1000">
+</el-pagination>
+  <!-- 分页 -->
   </div>
 </template>
 
@@ -52,55 +59,62 @@ export default {
     return {
       tableData: [{
         date: '2016-05-03',
-        autor: '王小虎',
-        tag: '上海',
+        autor: '王大锤',
+        tag: '前端',
         city: '普陀区',
-        title: '上海市普陀区金沙江路 1518 弄',
+        title: '殷娜滦南',
         ID: 200333
       }, {
         date: '2016-05-02',
-        autor: '王小虎',
-        tag: '上海',
+        autor:'张浩',
+        tag: '后端',
         city: '普陀区',
-        title: '上海市普陀区金沙江路 1518 qwd海市普陀区金沙江路 1518 qwdqw弄海市普陀区金沙江路 1518 qwdqw弄qw弄',
+        title: '我爱祖国',
         ID: 200333
       }, {
         date: '2016-05-04',
-        autor: '王小虎',
-        tag: '上海',
+        autor: '程晓磊',
+        tag: '安卓',
         city: '普陀区',
-        title: '上海市普陀区金沙江路 1518 弄',
+        title: '鲁滨逊漂流记',
+        ID: 200333
+      }, 
+      {
+        date: '2016-05-01',
+        autor: 'mis高',
+        tag: 'ios',
+        city: '普陀区',
+        title: '阿弥陀佛',
+        ID: 200333
+      },
+      {
+        date: '2016-05-03',
+        autor: '王大锤',
+        tag: '前端',
+        city: '普陀区',
+        title: '殷娜滦南',
         ID: 200333
       }, {
-        date: '2016-05-01',
-        autor: '王小虎',
-        tag: '上海',
+        date: '2016-05-02',
+        autor:'张浩',
+        tag: '后端',
         city: '普陀区',
-        title: '上海市普陀区金沙江路 1518 弄',
+        title: '我爱祖国',
         ID: 200333
-      },
+      }, {
+        date: '2016-05-04',
+        autor: '程晓磊',
+        tag: '安卓',
+        city: '普陀区',
+        title: '鲁滨逊漂流记',
+        ID: 200333
+      }, 
       {
         date: '2016-05-01',
-        autor: '王小虎',
-        tag: '上海',
+        autor: 'mis高',
+        tag: 'ios',
         city: '普陀区',
-        title: '上海市普陀区金沙江路 1518 弄',
-        ID: 200333
-      },
-      {
-        date: '2016-05-01',
-        autor: '王小虎',
-        tag: '上海',
-        city: '普陀区',
-        title: '上海市普陀区金沙江路 1518 弄',
-        ID: 200333
-      },
-      {
-        date: '2016-05-01',
-        autor: '王小虎',
-        tag: '上海',
-        city: '普陀区',
-        title: '上海市普陀区金沙江路 1518 弄',
+        title: '阿弥陀佛',
         ID: 200333
       }]
     };
@@ -142,5 +156,8 @@ export default {
 <style scoped>
 .list-warp{
     margin-top: 25px;
+}
+.el-pagination{
+  margin:5px 0 0 300px;
 }
 </style>

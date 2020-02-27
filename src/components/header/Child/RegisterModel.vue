@@ -6,8 +6,18 @@
   width="30%"
   center>
   <el-form  label-width="0" :model="formLabelAlign">
+  <!-- <div :model="form">
+      <el-input placeholder="用户名" prefix-icon="Lazy Lazylogin_user" v-model="form.userName"></el-input>
+      <el-input placeholder="密码" prefix-icon="Lazy Lazymima" v-model="form.passWord"></el-input>
+  </div> -->
   <el-form-item label="">
-    <el-input v-model="formLabelAlign.name" placeholder="请输入手机号"    prefix-icon="Lazy Lazyuser_login"></el-input>
+    <el-input v-model="formLabelAlign.username" placeholder="请输入用户名"    prefix-icon="Lazy Lazyuser_login"></el-input>
+  </el-form-item>
+  <el-form-item label="">
+    <el-input v-model="formLabelAlign.password" placeholder="请输入密码"    prefix-icon="Lazy Lazymima"></el-input>
+  </el-form-item>
+  <el-form-item label="">
+    <el-input v-model="formLabelAlign.tell" placeholder="请输入手机号"    prefix-icon="el-icon-phone"></el-input>
   </el-form-item>
   <el-form-item label="">
     <el-input v-model="formLabelAlign.region" class = "Vcode" type="password" placeholder="请输入验证码"  prefix-icon="Lazy Lazymima"></el-input>
@@ -30,9 +40,11 @@ export default {
         return{
             centerDialogVisible:true,
                 formLabelAlign: {
-                name: '',
-                region: '',
-                type: ''
+                  username:'',
+                  password:'',
+                  tell: '',
+                  region: '',
+                  type: ''
                 }
             }
     },
