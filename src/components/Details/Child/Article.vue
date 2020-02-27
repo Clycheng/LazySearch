@@ -65,7 +65,7 @@
                 <button type="button" class="_1OyPqC _3Mi9q9 _1YbC5u" disabled>
                   <span>发布</span>
                 </button>
-                <button type="button" class="_1OyPqC _2nzlC_">
+                <button type="button" class="_1OyPqC _2nzlC_" disabled>
                   <span>取消</span>
                 </button>
               </div>
@@ -102,33 +102,17 @@
             <div class="_2bDGm4">写的很好，才女👍</div>
             <div class="_2ti5br">
               <div class="_3MyyYc">
-                <span class="_2GXD2V _1Jvkh4" role="button" tabindex="-1" aria-label="点赞">
-                  <i aria-label="ic-like" class="anticon">
-                    <svg
-                      width="1em"
-                      height="1em"
-                      fill="currentColor"
-                      aria-hidden="true"
-                      focusable="false"
-                      class
-                    >
-                      <use xlink:href="#ic-like" />
-                    </svg>
-                  </i> 赞
+                <span class="_2GXD2V _1Jvkh4" v-show="!showCommentInput" @click="showCommentInput = !showCommentInput">
+                  <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
+                  赞
                 </span>
-                <span class="_1Jvkh4" role="button" tabindex="-1" aria-label="添加评论">
-                  <i aria-label="ic-reply" class="anticon">
-                    <svg
-                      width="1em"
-                      height="1em"
-                      fill="currentColor"
-                      aria-hidden="true"
-                      focusable="false"
-                      class
-                    >
-                      <use xlink:href="#ic-reply" />
-                    </svg>
-                  </i> 回复
+                <span class="_2GXD2V _1Jvkh4 _2GXD2Vyincang" v-show="showCommentInput" @click="showCommentInput = !showCommentInput">
+                  <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
+                  赞
+                </span>
+                <span class="_1Jvkh4">
+                  <i aria-label="ic-reply" class="anticon el-icon-eleme"></i>
+                  回复
                 </span>
               </div>
             </div>
@@ -151,8 +135,9 @@ export default {
       content: "",
       // 评分
       value2: 4.5,
-      colors: ["#99A9BF", "#F7BA2A", "#FF9900"]
+      colors: ["#99A9BF", "#F7BA2A", "#FF9900"],
       // 评分
+      showCommentInput:false,
     };
   },
   props: ["category"],
@@ -181,7 +166,7 @@ export default {
   methods: {
     ajxa(e) {
       console.log(e);
-    }
+    },
   }
 };
 </script>
@@ -259,4 +244,12 @@ a {
 .item {
   margin: 10px 40px 30px 20px;
 }
+
+/* 字体隐藏 赞 */
+._2GXD2Vyincang{
+    color: #54a2eb;
+    margin: 0 10px 0 10px;
+    font-weight: bold;
+}
+/* 字体隐藏 */
 </style>

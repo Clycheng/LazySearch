@@ -4,8 +4,8 @@
       <input type="text" v-model="title" placeholder="请输入标题">
   </div>
   <div id = "Edit"></div>
-  <button @click  = "preview">预览效果</button>
-  <button @click= "submit">提交</button>
+  <button class="btnyu" @click  = "preview">预览效果</button>
+  <button class="btnjiao" @click= "submit">提交</button>
   </div>
 </template>
 
@@ -86,11 +86,54 @@ export default {
   height: 80px;
   background: #F4F5F5;
   font-size: 30px;
+  padding-left: 20px;
 }
 .edit-warp{
   margin-top: 35px;
 }
 #Edit .w-e-text-container {
   height: 700px;
+}
+.btnyu{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    border: 2px solid #54a2eb;
+    margin: 10px;
+    background: rgb(238, 238, 238);
+    color: #54a2eb;
+    cursor:pointer;
+    font-weight: bold;
+}
+.btnyu:hover{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    margin: 10px;
+    background: #54a2eb;
+    color: rgb(255, 255, 255);
+    cursor:pointer;
+}
+.btnjiao{
+    width: 55px;
+    height: 30px;
+    border-radius: 10px;
+    border: 2px solid #54a2eb;
+    margin: 10px;
+    background: rgb(238, 238, 238);
+    color: #54a2eb;
+    cursor:pointer;
+    font-weight: bold;
+}
+.btnjiao:hover{
+    width: 55px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    margin: 10px;
+    background: #54a2eb;
+    color: rgb(255, 255, 255);
+    cursor:pointer;
 }
 </style>

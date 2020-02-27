@@ -48,15 +48,15 @@ export default {
   },
   methods:{
     Back(){
-      this.$router.push('/')
+      // this.$router.push('/')
+      this.$router.go(-1)
     },
     Jump(e){
       if(this.$route.fullPath == "/Edit/"+e){
         return;
       }
       this.$router.push('/Edit/'+e)
-    }
-
+    },
   }
 };
 </script>
@@ -77,9 +77,21 @@ export default {
     width: 55%;
     margin: 0 auto;
     margin-top: 15px;
-    border: 2px solid rgb(200, 213, 250);
+    border: 2px solid #54a2eb;
     background: #404040;
-    color: rgb(200, 213, 250);
+    color: #54a2eb;
+    font-weight: bold;
+    cursor:pointer;
+}
+.el-button--default.is-round:hover{
+    display: block;
+    width: 55%;
+    margin: 0 auto;
+    margin-top: 15px;
+    background: #54a2eb;
+    color: #ffffff;
+    font-weight: bold;
+    cursor:pointer;
 }
 h3{
   box-sizing: border-box;
@@ -100,11 +112,12 @@ h3:hover{
   background: #777777;
 }
  .head {
-        line-height: 60px;
-        text-align: center;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 45px;
-        color: #404040;
-        text-shadow: 0 1px 0 #fff
-    }
+   line-height: 60px;
+  text-align: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 45px;
+  color: #404040;
+  text-shadow: 0 1px 0 #fff;
+  margin:10px auto;
+}
 </style>

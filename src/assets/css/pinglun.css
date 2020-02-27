@@ -14,7 +14,8 @@
  height:40px;
  border-radius:50%;
  border:1px solid #eee;
- margin-right:10px
+ margin-right:10px;
+ cursor:pointer;
 }
 body.reader-night-mode ._3LHFA- {
  border-color:#2f2f2f
@@ -79,10 +80,22 @@ body.reader-night-mode ._1u_H4i {
     width: 55px;
     height: 30px;
     border-radius: 10px;
+    border: 2px solid #54a2eb;
+    margin: 10px;
+    background: #ffffff;
+    color: #54a2eb;
+    cursor:pointer;
+    font-weight: bold;
+}
+._1OyPqC:hover{
+    width: 55px;
+    height: 30px;
+    border-radius: 10px;
     border: none;
     margin: 10px;
     background: #54a2eb;
     color: rgb(255, 255, 255);
+    font-weight: bold;
 }
 .QxT4hDbox{
     background: #ffffff;
@@ -173,6 +186,8 @@ margin-left: 20px;
 }
 ._1Jvkh4{
     color: #afafaf;
+    margin: 0 10px 0 10px;
+    cursor:pointer;
 }
 ._1_jhXc {
  width:40px;
