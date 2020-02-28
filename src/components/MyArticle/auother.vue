@@ -17,51 +17,31 @@
               <div class="main-top-right" v-for="(item,index) in user" :key="index">
                 <h1>{{item.username}}</h1>
                 <div class="message">
-                  <el-tooltip class="item" effect="dark" content="关注量" placement="top-start">
+                  <el-tooltip class="item" effect="dark" content="关注度" placement="top-start">
                     <router-link to>
                       <i class="Lazy Lazyguanzhu3"></i>关注
                       <span>{{item.guan}}</span>
                     </router-link>
                   </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="粉丝数"
-                    placement="top-start"
-                  >
+                  <el-tooltip class="item" effect="dark" content="粉丝数" placement="top-start">
                     <router-link to>
                       <i class="Lazy Lazyfensi1"></i>粉丝
                       <span>{{item.fensi}}</span>
                     </router-link>
                   </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="文章数"
-                    placement="top-start"
-                  >
+                  <el-tooltip class="item" effect="dark" content="文章数" placement="top-start">
                     <router-link to>
                       <i class="Lazy Lazywenzhang1"></i>文章
                       <span>{{item.wen}}</span>
                     </router-link>
                   </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="点赞数"
-                    placement="top-start"
-                  >
+                  <el-tooltip class="item" effect="dark" content="点赞数" placement="top-start">
                     <router-link to>
                       <i class="Lazy Lazyz-like"></i>点赞
                       <span>{{item.zan}}</span>
                     </router-link>
                   </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="喜欢数"
-                    placement="top-start"
-                  >
+                  <el-tooltip class="item" effect="dark" content="喜欢数" placement="top-start">
                     <router-link to>
                       <i class="Lazy Lazyhuabanfuben"></i>收获喜欢
                       <span>{{item.huan}}</span>
@@ -72,7 +52,32 @@
               </div>
             </div>
             <div class="content">
-              <MainTab></MainTab>
+              <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane name="Article">
+                  <span slot="label">
+                    <i class="Lazy Lazywenzhang1"></i> 我的文章
+                  </span>
+                  <CommonList :cat="{name:'Article',type:1}"></CommonList>
+                </el-tab-pane>
+                <el-tab-pane name="Fab">
+                  <span slot="label">
+                    <i class="Lazy Lazyz-like"></i> 我的点赞
+                  </span>
+                  <CommonList :cat="{name:'Fab',type:1}"></CommonList>
+                </el-tab-pane>
+                <el-tab-pane name="Follow">
+                  <span slot="label">
+                    <i class="Lazy Lazyguanzhu3"></i> 我的关注
+                  </span>
+                  <FollowList></FollowList>
+                </el-tab-pane>
+                <el-tab-pane name="Fans">
+                  <span slot="label">
+                    <i class="Lazy Lazyfensi1"></i> 我的粉丝
+                  </span>
+                  <Fenlist></Fenlist>
+                </el-tab-pane>
+              </el-tabs>
             </div>
           </el-main>
           <el-aside>
@@ -119,13 +124,13 @@
                 </a>
               </div>
               <div class="asdieimg">
-                  <img src="../../assets/banner1.png" alt="">
+                <img src="../../assets/banner1.png" alt />
               </div>
               <div class="asdieimg">
-                  <img src="../../assets/viptop.png" alt="">
+                <img src="../../assets/viptop.png" alt />
               </div>
             </div>
-                        <!-- 个人中心的侧内容 -->
+            <!-- 个人中心的侧内容 -->
           </el-aside>
         </el-container>
       </el-main>
@@ -135,15 +140,19 @@
 
 <script>
 /* eslint-disable */
+import CommonList from "../main/common/CommonList";
+import FollowList from "./Child/FollowList";
+import Fenlist from "./Child/Fenlist";
+
 import Header from "../header/Head";
 import MainTab from "./Child/MainTab";
 export default {
-  name: "MyArticle",
+  name: "auother",
   data() {
     return {
       user: [
         {
-          username: "晓磊",
+          username: "唐家三少",
           jie:
             "熟悉es6,nodejs;熟悉mvvm开发模式;熟悉使用react,vue...熟悉Ajax,CSS等Web相关前端技术、熟悉HTML5、CSS3;熟悉各主流浏览器的兼容性调试,有相关的性能优化经验,具有良好的编程习惯;具有很强的业务需求分析能力、问题定位和沟通表达能力; ",
           guan: "56284",
@@ -152,18 +161,33 @@ export default {
           zan: "98658",
           huan: "666"
         }
-      ]
+      ],
+      activeName: "Article"
     };
+  },
+  methods: {
+    handleClick(tab, event) {
+      console.log(tab, event);
+    }
   },
   components: {
     Header,
     MainTab,
-    num: 1231231 //填充数字 可删
+    num: 1231231, //填充数字 可删
+
+    CommonList,
+    FollowList,
+    Fenlist
   }
 };
 </script>
 
 <style scoped>
+/* 侧翻 */
+.is-top span i {
+  font-size: 14px;
+}
+/* 侧翻 */
 .el-header {
   padding: 0px;
   text-align: center;
@@ -232,94 +256,94 @@ export default {
 /* 个人中心 侧内容 */
 
 .sticky-section[data-v-398d293d] {
- position:fixed;
- top:127px
+  position: fixed;
+  top: 127px;
 }
 .sticky-section .section[data-v-398d293d] {
- width:240px;
- overflow:hidden;
- border-radius:2px;
- box-shadow:0 1px 3px 0 rgba(4,5,13,.23);
- background-color:#fff
+  width: 240px;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px 0 rgba(4, 5, 13, 0.23);
+  background-color: #fff;
 }
 .sticky-section .section .slogan[data-v-398d293d] {
- padding:15px 16px;
- border-bottom:1px solid #e6e8e8
+  padding: 15px 16px;
+  border-bottom: 1px solid #e6e8e8;
 }
 .sticky-section .section .slogan .title[data-v-398d293d] {
- font-size:15px;
- color:#000
+  font-size: 15px;
+  color: #000;
 }
 .sticky-section .section .slogan .desc[data-v-398d293d] {
- margin-top:8px;
- line-height:1.4;
- font-size:14px;
- color:#646464
+  margin-top: 8px;
+  line-height: 1.4;
+  font-size: 14px;
+  color: #646464;
 }
 .sticky-section .section .wechat-qr[data-v-398d293d] {
- padding:12px 16px
+  padding: 12px 16px;
 }
 .sticky-section .section .wechat-qr .title[data-v-398d293d] {
- font-size:15px
+  font-size: 15px;
 }
 .sticky-section .section .wechat-qr .qr-img[data-v-398d293d] {
- margin-top:9px;
- height:95px;
- background:url('../../assets/shouw.png') no-repeat center 0;
- background-size:contain;
- border-radius:2px
+  margin-top: 9px;
+  height: 95px;
+  background: url("../../assets/shouw.png") no-repeat center 0;
+  background-size: contain;
+  border-radius: 2px;
 }
 .sticky-section .help[data-v-398d293d] {
- margin-top:10px;
- display:flex;
- justify-content:center;
- align-items:center
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .sticky-section .help .items[data-v-398d293d] {
- flex-grow:1;
- display:flex;
- height:90px;
- justify-content:center;
- align-items:center;
- flex-direction:column;
- color:#71777b
+  flex-grow: 1;
+  display: flex;
+  height: 90px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #71777b;
 }
 .sticky-section .help .items[data-v-398d293d]:hover {
- background-color:#f9f9f9
+  background-color: #f9f9f9;
 }
 .sticky-section .help .items[data-v-398d293d]:first-child {
- position:relative
+  position: relative;
 }
 .sticky-section .help .items[data-v-398d293d]:first-child:after {
- content:"";
- position:absolute;
- width:0;
- height:45px;
- top:50%;
- right:0;
- transform:translateY(-50%);
- border-right:1px solid #efefef
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 45px;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  border-right: 1px solid #efefef;
 }
 .sticky-section .help .items img[data-v-398d293d] {
- width:auto;
- height:28px
+  width: auto;
+  height: 28px;
 }
 .sticky-section .help .items .title[data-v-398d293d] {
- margin-top:8px;
- font-size:14px
+  margin-top: 8px;
+  font-size: 14px;
 }
 .sticky-section .book-new-user-ticket-for-book-index[data-v-398d293d] {
- margin-top:10px
+  margin-top: 10px;
 }
 .top .sticky-section[data-v-398d293d] {
- top:67px
+  top: 67px;
 }
-.asdieimg{
+.asdieimg {
   width: 240px;
   height: 80px;
-  margin-top: 10px
+  margin-top: 10px;
 }
-.asdieimg img{
+.asdieimg img {
   width: 100%;
   height: 100%;
 }

@@ -6,15 +6,17 @@
     <el-divider></el-divider>
     <ul>
       <li v-for="(item,index) in list " :key="index">
+        <router-link :to='{ name: "auother", query: { id: item.id }}'>
         <el-container>
           <el-aside width="60px">
             <img :src="item.headUrl" alt />
           </el-aside>
           <el-main>
-            <h4><router-link to="作者中心">{{item.autor}}</router-link></h4>
+            <h4>{{item.autor}}</h4>
             <p class="mainp">{{item.explain}}</p>
           </el-main>
         </el-container>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -65,7 +67,6 @@ export default {
 
 <style scoped>
 .warp {
-  width: 100%;
   background: white;
 }
 h3 {

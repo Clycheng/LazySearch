@@ -3,7 +3,9 @@
     <el-row>
       <el-col :span="8">
         <div class="logo-warp">
+          <router-link to="/">
           <img src="http://www.chengxiaolei.top/wp-content/uploads/2018/11/logo-1.png" alt />
+          </router-link>
         </div>
       </el-col>
       <el-col :span="8">
@@ -52,6 +54,12 @@ export default {
   padding: 0 0;
   transition: 0.3s;
   box-shadow: 1px 1px 1px rgb(221, 216, 216);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
 }
 .header-warp img {
   height: 32px;

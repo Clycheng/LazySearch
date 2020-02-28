@@ -45,4 +45,11 @@ export default {
     margin: 0 auto;
     padding-top: 25px;
 }
+.el-header{
+  padding: 0;    
+}
+.warp{
+  position:fixed;
+  top:105px;
+}
 </style>

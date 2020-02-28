@@ -9,7 +9,9 @@ import List from '@/components/Edit/Child/List'
 import Default from '@/components/Edit/Child/Default'
 import Preview from '@/components/Edit/Child/Preview'
 import MyArticle from '@/components/MyArticle/Index'
+import auother from '@/components/MyArticle/auother'
 import VIP from '@/components/VIP/index'
+import Users from '@/components/header/Users'
 import logintext from '@/components/VIP/logintext'
 // logintext:用于检测用户是否登录，如果没有登录，弹出logintext进行登录。
 Vue.use(Router)
@@ -64,6 +66,11 @@ export default new Router({
       component: MyArticle
     },
     {
+      path: '/auother',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
+      name: 'auother',
+      component: auother
+    },
+    {
       path: '/VIP',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
       name: 'VIP',
       component: VIP
@@ -71,7 +78,12 @@ export default new Router({
     {
       path: '/logintext',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
       name: 'logintext',
-      component: logintext
+      component: logintext 
+    },
+    {
+      path: '/Users',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
+      name: 'Users',
+      component: Users
     },
   ]
 })

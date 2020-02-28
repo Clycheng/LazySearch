@@ -20,7 +20,8 @@
             <router-link to="/MyArticle">我的文章</router-link>
           </el-menu-item>
           <el-menu-item index="4-2">
-            <i class="Lazy Lazytianchongxing-" style="margin-right:15px"></i>我的收藏
+            <i class="Lazy Lazytianchongxing-" style="margin-right:15px"></i>
+            <router-link to="/Users">个人设置</router-link>
           </el-menu-item>
           <el-menu-item index="4-3" @click="LogOut">
             <i class="Lazy Lazyloginout" style="margin-right:15px"></i>log out

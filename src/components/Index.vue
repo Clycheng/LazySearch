@@ -32,7 +32,7 @@ export default {
 
 <style>
  .el-header{
-     padding:  0;
+     padding:0;
      text-align: center;
      position: fixed;
      top: 0;

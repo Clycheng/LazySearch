@@ -118,6 +118,6 @@ h3:hover{
   font-size: 45px;
   color: #404040;
   text-shadow: 0 1px 0 #fff;
-  margin-left: 300px;
+  /* margin-left: 300px; */
 }
 </style>
