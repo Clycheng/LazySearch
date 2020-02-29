@@ -1,5 +1,8 @@
 <template>
   <div>
+    <el-header>
+      <Header></Header>
+    </el-header>
     <div style="height: 2970.74px; overflow: hidden;">
       <div class="club-A-qFT_0" style="transform: scale(0.45944);">
         <!---->
@@ -14,9 +17,7 @@
           <div class="club-buy-type-1iVyz_0">
             <div class="club-buy-type-item-12DKg_0 club-buy-type-item-gold-2quMC_0">
               <div>
-                <img
-                  src="../../assets/vipicon.png"
-                />
+                <img src="../../assets/vipicon.png" />
                 <span>极光金牌会员</span>
               </div>
               <h5>
@@ -31,9 +32,7 @@
             </div>
             <div class="club-buy-type-item-12DKg_0 club-buy-type-item-platina-27h_S_0">
               <div>
-                <img
-                  src="../../assets/vipicon2.png"
-                />
+                <img src="../../assets/vipicon2.png" />
                 <span>极光白金会员</span>
               </div>
               <h5>
@@ -51,7 +50,13 @@
         </div>
         <div class="club-date-select-1YFaw_0">
           <h4 class="club-subtitle-3hv93_0">会员有效期</h4>
-            <div class="club-date-select-item-32HBM_0" v-for="(item,index) in relations" :key="index" :class="{'club-date-select-item-active-3oMot_0':currentSort==index}" @click="active(index)">
+          <div
+            class="club-date-select-item-32HBM_0"
+            v-for="(item,index) in relations"
+            :key="index"
+            :class="{'club-date-select-item-active-3oMot_0':currentSort==index}"
+            @click="active(index)"
+          >
             <div class="club-date-select-item-content-1ozGJ_0">
               <span class="time-3tZ3H_0">{{item.date}}</span> |
               <span class="price-1nCxv_0">{{item.price}}</span>
@@ -168,41 +173,59 @@
 
 <script>
 /* eslint-disable */
+import Header from '../header/Head'
 export default {
   name: "VIP",
   data() {
-  return{
-    relations: [
-      {date:'月度（31天）',price:'¥18'},
-      {date:'季度（93天）',price:'¥50'},
-      {date:'年度（372天）',price:'¥188'}
-    ],
-    currentSort:0,
-  }
+    return {
+      relations: [
+        { date: "月度（31天）", price: "¥18" },
+        { date: "季度（93天）", price: "¥50" },
+        { date: "年度（372天）", price: "¥188" }
+      ],
+      currentSort: 0
+    };
   },
-  components: {},
+  components: {
+    Header
+  },
   methods: {
     active(index) {
-       this.currentSort = index;
+      this.currentSort = index;
     },
-    btnpay(){
-        const weiXinUrl = require("../../assets/hao.png");
-        const aLiUrl = require("../../assets/lei.png");
-        this.$alert("<strong><img src="+ weiXinUrl + " width=192px height=192px><img src=" + aLiUrl + " width=192px height=192px></strong>", '请扫描下方二维码进行支付：', {
+    btnpay() {
+      const weiXinUrl = require("../../assets/hao.png");
+      const aLiUrl = require("../../assets/lei.png");
+      this.$alert(
+        "<strong><img src=" +
+          weiXinUrl +
+          " width=192px height=192px><img src=" +
+          aLiUrl +
+          " width=192px height=192px></strong>",
+        "请扫描下方二维码进行支付：",
+        {
           dangerouslyUseHTMLString: true
-        }).then(action => {
-        
-        });
+        }
+      ).then(action => {});
     }
   }
 };
 </script>
 
 <style scoped>
-    @import url('../../assets/css/vip01.css');
-    @import url('../../assets/css/vip02.css');
-    .ic-selected{
-      color: #e4e1e1;
-    font-size: 4.266667vw;
-    }
+@import url("../../assets/css/vip01.css");
+@import url("../../assets/css/vip02.css");
+.ic-selected {
+  color: #e4e1e1;
+  font-size: 4.266667vw;
+}
+ .el-header{
+     padding:0;
+     text-align: center;
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     z-index: 9999;
+ }
 </style>

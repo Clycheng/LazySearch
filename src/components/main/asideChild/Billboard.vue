@@ -1,7 +1,7 @@
 <template>
   <div class="warp">
-    <h3 style="color:#409EFF">
-      <i class="Lazy Lazydianzan5"></i> 作者榜
+    <h3 style="color:#409EFF;margin-left:20px">
+      作者榜
     </h3>
     <el-divider></el-divider>
     <ul>
@@ -68,6 +68,7 @@ export default {
 <style scoped>
 .warp {
   background: white;
+  margin-right: 150px;
 }
 h3 {
   padding-top: 10px;

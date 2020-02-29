@@ -63,10 +63,12 @@ export default {
 <style scoped>
 .el-container{
   height: 750px;
+  z-index: 1;
 }
 .el-aside{
   background:#404040;
   color: #f2f2f2;
+  z-index: 9999;
 }
 .el-main{
   background: rgb(238, 238, 238)
@@ -111,13 +113,12 @@ h3:hover{
   background: #777777;
 }
  .head {
-   width: 1300px;
    line-height: 60px;
-  text-align: center;
+   text-align: center;
+    /* margin-left: 300px; */
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 45px;
   color: #404040;
   text-shadow: 0 1px 0 #fff;
-  /* margin-left: 300px; */
 }
 </style>

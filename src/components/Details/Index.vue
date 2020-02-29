@@ -42,11 +42,17 @@ export default {
 <style scoped>
 .el-container.connet{
     width: 85%;
-    margin: 0 auto;
+    margin: 60px auto;
     padding-top: 25px;
 }
 .el-header{
-  padding: 0;    
+      padding:0;
+     text-align: center;
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     z-index: 9999;  
 }
 .warp{
   position:fixed;

@@ -116,4 +116,13 @@ export default {
   background: #ffffff;
   margin-top: 50px;
 }
+ .el-header{
+     padding:0;
+     text-align: center;
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     z-index: 9999;
+ }
 </style>  
