@@ -52,9 +52,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="setting-title">电子邮件</td>
+                <td class="setting-title">密码</td>
                 <td>
-                  <input type="text" placeholder="请输入电子邮件" />
+                  <input type="text" placeholder="请输入新密码" />
                   <!---->
                 </td>
               </tr>

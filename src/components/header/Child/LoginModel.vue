@@ -55,7 +55,7 @@ export default {
     // 登录
     loginok(formLabelAlign){
       loginin(formLabelAlign).then(res => {
-        if (res.code == 200) {
+        if (res.code == 10006) {
           alert(res.message);
         } else {
           alert(res.message);

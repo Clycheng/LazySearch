@@ -1,7 +1,7 @@
 <template>
   <div :model="pin">
-    <div class="warp">
-      <h1>{{title}}</h1>
+    <div class="warp" :model='textwen'>
+      <h1>{{textwen.post_title}}</h1>
       <el-container class="autor">
         <el-aside width="50px">
           <router-link class="autor-img" to="#">
@@ -14,21 +14,22 @@
         <el-main>
           <div class="autor-message">
             <p class="autor-name">
-              <router-link to="#">每日心选</router-link>
+              <router-link to="#">{{textwen.author_name}}</router-link>
               <el-button size="mini" round>关注</el-button>
               <!-- 评分 -->
               <el-rate v-model="value2" :colors="colors"></el-rate>
               <!-- 评分 -->
             </p>
             <p class="Interaction">
-              <em>2020.01.30 11:44:02</em>
-              <em>字数 1,050</em>
-              <em>阅读 268</em>
+              <em>{{textwen.post_date}}</em>
+              <!-- <em>字数 {{textwen.post_content.length}}</em> -->
+              <em>阅读 {{textwen.Ready_Num}}</em>
             </p>
           </div>
         </el-main>
       </el-container>
       <div v-html="content" id="connet-warp"></div>
+      <div v-html="textwen.post_content" id="connet-warp">{{textwen.post_content}}</div>
     </div>
     <!-- 评论 -->
     <div class="comment">
@@ -87,13 +88,18 @@
           <a class="_1OhGeD" href="/u/5330826245e3" target="_blank" rel="noopener noreferrer">
             <img
               class="_1_jhXc"
-               src="https://upload.jianshu.io/users/upload_avatars/6778531/66e3f92e-e6c0-454d-87a4-92e8377e33c5.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
+              src="https://upload.jianshu.io/users/upload_avatars/6778531/66e3f92e-e6c0-454d-87a4-92e8377e33c5.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
               alt
             />
           </a>
           <div class="_1K9gkf">
             <div class="_23G05g">
-              <a class="_1OhGeD" href="/u/5330826245e3" target="_blank" rel="noopener noreferrer">{{item.username}}</a>
+              <a
+                class="_1OhGeD"
+                href="/u/5330826245e3"
+                target="_blank"
+                rel="noopener noreferrer"
+              >{{item.username}}</a>
             </div>
             <div class="_1xqkrI">
               <span>{{item.num}}楼</span>
@@ -102,11 +108,19 @@
             <div class="_2bDGm4">{{item.text}}</div>
             <div class="_2ti5br">
               <div class="_3MyyYc">
-                <span class="_2GXD2V _1Jvkh4" v-show="!showCommentInput" @click="showCommentInput = !showCommentInput">
+                <span
+                  class="_2GXD2V _1Jvkh4"
+                  v-show="!showCommentInput"
+                  @click="showCommentInput = !showCommentInput"
+                >
                   <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
                   赞
                 </span>
-                <span class="_2GXD2V _1Jvkh4 _2GXD2Vyincang" v-show="showCommentInput" @click="showCommentInput = !showCommentInput">
+                <span
+                  class="_2GXD2V _1Jvkh4 _2GXD2Vyincang"
+                  v-show="showCommentInput"
+                  @click="showCommentInput = !showCommentInput"
+                >
                   <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
                   赞
                 </span>
@@ -127,21 +141,38 @@
 
 <script>
 /* eslint-disable */
+  import {queryAbout} from '../../../api/text/wentext';
 export default {
   name: "Article",
   data() {
     return {
       title: "",
       content: "",
+      textwen:[],
       // 评分
       value2: 4.5,
       colors: ["#99A9BF", "#F7BA2A", "#FF9900"],
       // 评分
-      showCommentInput:false,
-      pin:[
-        {username:'文泽',num:'1',time:'02.26 17:27',text:'写的很好，才女👍'},
-        {username:'张浩',num:'2',time:'02.27 18:25',text:'你特娘的太有才了'},
-        {username:'晓磊',num:'3',time:'02.27 20:03',text:'太好了写的，真不错啊。'},
+      showCommentInput: false,
+      pin: [
+        {
+          username: "文泽",
+          num: "1",
+          time: "02.26 17:27",
+          text: "写的很好，才女👍"
+        },
+        {
+          username: "张浩",
+          num: "2",
+          time: "02.27 18:25",
+          text: "你特娘的太有才了"
+        },
+        {
+          username: "晓磊",
+          num: "3",
+          time: "02.27 20:03",
+          text: "太好了写的，真不错啊。"
+        }
       ]
     };
   },
@@ -161,6 +192,10 @@ export default {
     document.addEventListener("copy", function(e) {
       console.log(e);
     });
+    // 接收id
+    this.id = this.$route.query.id;
+    this.aboutQuery(this.id);
+    // 接收id
   },
   updated() {
     // let warp = document.getElementById("connet-warp")
@@ -172,6 +207,17 @@ export default {
     ajxa(e) {
       console.log(e);
     },
+    // 获取详情
+    aboutQuery(id) {
+      queryAbout(id).then(res => {
+        console.log(res.data)
+        if (res.status == 200) {
+          this.textwen=res.data[0];
+          console.log(this.textwen)
+        }
+      });
+    }
+        // 获取详情
   }
 };
 </script>
@@ -217,6 +263,15 @@ h1 {
 .Interaction em:nth-child(1) {
   margin-left: 0px;
 }
+#connet-warp{
+  /* width: 852px; */
+  padding: 24px;
+
+    /* 自动换行 */
+  word-wrap: break-word;
+  white-space : normal;
+    /* 自动换行 */
+}
 #connet-warp >>> img {
   display: block;
   width: 55%;
@@ -227,13 +282,30 @@ h1 {
   margin-top: 5px;
   line-height: 160%;
   padding: 15px;
+  background: #ffffff;
+  /* 自动换行 */
+    white-space:pre-wrap;
+white-space:-moz-pre-wrap;
+white-space:-pre-wrap;
+white-space:-o-pre-wrap;
+word-wrap:break-word;
+  /* 自动换行 */
 }
 #connet-warp >>> code {
+    box-sizing: border-box;
   display: block;
   padding: 15px;
   width: 100%;
-  background: #f3f4f5;
+  background: #ffffff;
   overflow: scroll;
+    /* 自动换行 */
+    white-space:pre-wrap;
+white-space:-moz-pre-wrap;
+white-space:-pre-wrap;
+white-space:-o-pre-wrap;
+word-wrap:break-word;
+  /* 自动换行 */
+  overflow-x: hidden; overflow-y: auto;
 }
 div {
   line-height: 25px;
@@ -251,10 +323,10 @@ a {
 }
 
 /* 字体隐藏 赞 */
-._2GXD2Vyincang{
-    color: #54a2eb;
-    margin: 0 10px 0 10px;
-    font-weight: bold;
+._2GXD2Vyincang {
+  color: #54a2eb;
+  margin: 0 10px 0 10px;
+  font-weight: bold;
 }
 /* 字体隐藏 */
 </style>
