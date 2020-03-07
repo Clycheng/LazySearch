@@ -90,7 +90,23 @@ export default {
     },
     LogOut() {
       this.$store.commit("ChangeIsLogin");
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('UserID');
+      sessionStorage.removeItem('userName');
+      this.$router.push("/");
+    },
+    // 刷新之后 根据本地存储的数据判断用户是否在线
+    shuaxin(){
+      let token=sessionStorage.getItem("token");
+      let UserID=sessionStorage.getItem("UserID");
+      let userName=sessionStorage.getItem("userName");
+      if(token&&UserID&&userName){
+        this.$store.commit("ChangeIsLoginss");
+      }
     }
+  },
+  created(){
+    this.shuaxin();
   }
 };
 </script>

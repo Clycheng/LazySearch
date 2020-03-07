@@ -1,6 +1,6 @@
 <template>
-  <div :model="pin">
-    <div class="warp" :model='textwen'>
+  <div :model="pin" v-loading="loading">
+    <div class="warp" :model="textwen">
       <h1>{{textwen.post_title}}</h1>
       <el-container class="autor">
         <el-aside width="50px">
@@ -20,9 +20,9 @@
               <el-rate v-model="value2" :colors="colors"></el-rate>
               <!-- 评分 -->
             </p>
-            <p class="Interaction">
+            <p class="Interaction" :model="textlength">
               <em>{{textwen.post_date}}</em>
-              <!-- <em>字数 {{textwen.post_content.length}}</em> -->
+              <em>字数 {{textlength}}</em>
               <em>阅读 {{textwen.Ready_Num}}</em>
             </p>
           </div>
@@ -40,7 +40,7 @@
           alt
         />
         <div class="_3GKFE3">
-          <textarea class="_1u_H4i" placeholder="写下你的评论..."></textarea>
+          <textarea class="_1u_H4i" placeholder="写下你的评论..." v-model="textpinlun"></textarea>
           <div>
             <div class="_3IXP9Q" style="display: flex;">
               <div class="SKZUyR">
@@ -64,10 +64,7 @@
               </div>
               <div class="_3Tp4of">
                 <button type="button" class="_1OyPqC _3Mi9q9 _1YbC5u" disabled>
-                  <span>发布</span>
-                </button>
-                <button type="button" class="_1OyPqC _2nzlC_" disabled>
-                  <span>取消</span>
+                  <span @click="pingluntext">发布</span>
                 </button>
               </div>
             </div>
@@ -124,10 +121,6 @@
                   <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
                   赞
                 </span>
-                <span class="_1Jvkh4">
-                  <i aria-label="ic-reply" class="anticon el-icon-eleme"></i>
-                  回复
-                </span>
               </div>
             </div>
           </div>
@@ -141,19 +134,24 @@
 
 <script>
 /* eslint-disable */
-  import {queryAbout} from '../../../api/text/wentext';
+import { queryAbout } from "../../../api/text/wentext";
 export default {
   name: "Article",
   data() {
     return {
+      loading: true,
       title: "",
       content: "",
-      textwen:[],
+      textwen: [],
+      textlength: "",
       // 评分
       value2: 4.5,
       colors: ["#99A9BF", "#F7BA2A", "#FF9900"],
       // 评分
       showCommentInput: false,
+      // 评论的内容
+      textpinlun: "",
+      // 评论的内容
       pin: [
         {
           username: "文泽",
@@ -190,7 +188,7 @@ export default {
   },
   mounted() {
     document.addEventListener("copy", function(e) {
-      console.log(e);
+      // console.log(e);
     });
     // 接收id
     this.id = this.$route.query.id;
@@ -204,20 +202,25 @@ export default {
     // console.log(tag_img)
   },
   methods: {
+    // 发布评论
+    pingluntext() {
+      console.log(this.textpinlun);
+    },
+    // 发布评论
     ajxa(e) {
-      console.log(e);
+      // console.log(e);
     },
     // 获取详情
     aboutQuery(id) {
       queryAbout(id).then(res => {
-        console.log(res.data)
         if (res.status == 200) {
-          this.textwen=res.data[0];
-          console.log(this.textwen)
+          this.loading = false;
+          this.textwen = res.data[0];
+          this.textlength = res.data[0].post_content.length;
         }
       });
     }
-        // 获取详情
+    // 获取详情
   }
 };
 </script>
@@ -263,14 +266,14 @@ h1 {
 .Interaction em:nth-child(1) {
   margin-left: 0px;
 }
-#connet-warp{
+#connet-warp {
   /* width: 852px; */
   padding: 24px;
 
-    /* 自动换行 */
+  /* 自动换行 */
   word-wrap: break-word;
-  white-space : normal;
-    /* 自动换行 */
+  white-space: normal;
+  /* 自动换行 */
 }
 #connet-warp >>> img {
   display: block;
@@ -284,28 +287,29 @@ h1 {
   padding: 15px;
   background: #ffffff;
   /* 自动换行 */
-    white-space:pre-wrap;
-white-space:-moz-pre-wrap;
-white-space:-pre-wrap;
-white-space:-o-pre-wrap;
-word-wrap:break-word;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
   /* 自动换行 */
 }
 #connet-warp >>> code {
-    box-sizing: border-box;
+  box-sizing: border-box;
   display: block;
   padding: 15px;
   width: 100%;
   background: #ffffff;
   overflow: scroll;
-    /* 自动换行 */
-    white-space:pre-wrap;
-white-space:-moz-pre-wrap;
-white-space:-pre-wrap;
-white-space:-o-pre-wrap;
-word-wrap:break-word;
   /* 自动换行 */
-  overflow-x: hidden; overflow-y: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  /* 自动换行 */
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 div {
   line-height: 25px;

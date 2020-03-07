@@ -6,11 +6,8 @@
       </el-header>
       <el-container>
         <el-main>
-          <CommonList :cat="{name:this.$route.params.val,type:2}"></CommonList>
+          <CommonList :cat="{name:this.$route.params.val}"></CommonList>
         </el-main>
-        <el-aside width="350px">
-            <Aside></Aside>
-        </el-aside>
       </el-container>
     </el-container>
   </div>
@@ -19,8 +16,7 @@
 <script>
 /* eslint-disable */
 import Header from "../header/Head";
-import CommonList from "../main/common/CommonList";
-import Aside from './Child/Aside';
+import CommonList from "./Child/CommnList";
 export default {
   name: "Search",
   data() {
@@ -28,22 +24,25 @@ export default {
       SearchVal: ""
     };
   },
-  methods: {},
+  methods: {
+
+  },
   components: {
     Header,
     CommonList,
-    Aside
-  
   }
 };
 </script>
 
 <style scoped>
+.el-main{
+  padding-top: 55px;
+}
 .el-aside{
-    padding-top: 70px;
+    padding-top: 90px;
 }
 .el-header{
-      padding:0;
+    padding:0;
      text-align: center;
      position: fixed;
      top: 0;

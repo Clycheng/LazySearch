@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div v-loading="loading">
     <ul
       class="infinite-list"
       infinite-scroll-distance="1010px"
       style="overflow:auto"
-      v-loading="loading"
     >
           <!-- v-infinite-scroll="load"   在ul中-->
       <li v-for="(item,index) in list" :key="index" class="list-item infinite-list-item">
@@ -41,34 +40,44 @@
 
 <script>
 /* eslint-disable */
-import {inserttext} from "../../../api/text/wentext";
+import {mytext} from "../../../api/text/wentext";
 export default {
   name: "CommonList",
   data() {
     return {
-      count: 10,
       list: [],
       page: 1,
-      limit:5,
-      total:0,
-      start:'',
-      loading:true,
+      limit: 5,
+      total: 0,
+      start: "",
+      loading: true,
+      author: "",
+      UserId: "",
     };
   },
-
     methods: {
     currentPage(val){
        this.page=val;
     },
+    // ,this.start=(this.page-1)*5
+    // 获取我的文章
  inserts(){
-      inserttext(this.$attrs.cat.type,this.start=(this.page-1)*5).then(res => {
-          if(res.data){
-            this.loading=false;
-              this.list=res.data.data;
-              this.total=res.data.total;
-          }
-      })
-    }
+      let token=sessionStorage.getItem("token");
+      let UserID=sessionStorage.getItem("UserID");
+      mytext({
+        token: token,
+        UserId: this.UserId=UserID,
+        start:this.start = (this.page - 1) * 5
+      }).then(res => {
+        console.log(res.data)
+        if (res.data.code == 200) {
+          this.loading=false;
+          this.list = res.data.data;
+          this.total = res.data.total;
+        }
+      });
+    },
+// 获取我的文章
   },
 mounted() {
   this.inserts();
@@ -79,6 +88,11 @@ mounted() {
     }
 },
   computed: {
+    // titleSubstr(e) {
+    //     return function(e){
+    //             return e=e.substr(10,50)
+    //         }
+    //     },
     innerSubstr(e) {
       return function(e) {
         return (e = e.substr(10, 100) + "...");

@@ -7,6 +7,7 @@
             v-model="formLabelAlign.name"
             placeholder="请输入账户名或者手机号"
             prefix-icon="Lazy Lazyuser_login"
+            @blur="userChange(formLabelAlign.name)"
           ></el-input>
         </el-form-item>
         <el-form-item label>
@@ -22,9 +23,9 @@
         <!-- <el-button type="primary" @click="centerDialogVisible==false">登 录</el-button> -->
         <el-button type="primary" @click="loginok(formLabelAlign)">登 录</el-button>
         <el-row class="other-login-warp">
-          <i class = "Lazy Lazyweixin4" style="color:#24DB5A"></i>
-          <i class = "Lazy Lazyqq1" style="color:#4A9AFD"></i>
-          <i class = "Lazy Lazygithubb" ></i>
+          <i class="Lazy Lazyweixin4" style="color:#24DB5A"></i>
+          <i class="Lazy Lazyqq1" style="color:#4A9AFD"></i>
+          <i class="Lazy Lazygithubb"></i>
         </el-row>
       </span>
     </el-dialog>
@@ -33,7 +34,7 @@
 
 <script>
 /* eslint-disable */
-import {loginin} from "../../../api/my/userinset";
+import { loginin, findUsers } from "../../../api/my/userinset";
 export default {
   name: "LoginModel",
   data() {
@@ -41,8 +42,7 @@ export default {
       centerDialogVisible: true,
       formLabelAlign: {
         name: "",
-        password: "",
-        type: ""
+        password: ""
       }
     };
   },
@@ -52,13 +52,63 @@ export default {
     }
   },
   methods: {
+    // 用户名表单值发生变化触发   用户名验证是否可用
+    userChange(name) {
+      if (this.userFlag) {
+        clearTimeout(this.userFlag);
+      }
+      this.userFlag = setTimeout(() => {
+        findUsers({ name }).then(res => {
+          if (res.data.code == 20020) {
+            if (this.formLabelAlign.name == "") {
+              this.$notify({
+                message: "用户名不能为空",
+                offset: 100,
+                type: "warning",
+                duration: 1500
+              });
+            } else {
+              this.$notify({
+                message: "用户名未注册",
+                offset: 100,
+                type: "warning",
+                duration: 1500
+              });
+            }
+          } else {
+            this.$notify({
+              message: "用户名正确",
+              offset: 100,
+              type: "success",
+              duration: 1500
+            });
+          }
+        });
+      }, 200);
+    },
     // 登录
-    loginok(formLabelAlign){
+    loginok(formLabelAlign) {
       loginin(formLabelAlign).then(res => {
-        if (res.code == 10006) {
-          alert(res.message);
+        console.log(res.data);
+        if (res.data.code == 10006) {
+          sessionStorage.setItem("token", res.data.data[0].token); //保存token
+          sessionStorage.setItem("UserID", res.data.data[0].UserID); //保存UserID
+          sessionStorage.setItem("userName", res.data.data[0].userName); //保存userName
+          this.$store.commit("ChangeIsLogin");
+          this.$store.commit("ChangeLoginModel");
+          this.$notify({
+            message: "登录成功",
+            offset: 100,
+            type: "success",
+            duration: 1500
+          });
         } else {
-          alert(res.message);
+          this.$notify({
+            message: "登录失败",
+            offset: 100,
+            type: "warning",
+            duration: 1500
+          });
         }
       });
     },
@@ -86,12 +136,12 @@ export default {
 }
 .other-login-warp.el-row {
   width: 170px;
-  display:flex;
+  display: flex;
   margin-top: 20px;
   justify-content: space-between;
 }
-.other-login-warp.el-row i{
-  margin-left:20%;
+.other-login-warp.el-row i {
+  margin-left: 20%;
   font-size: 25px;
   cursor: pointer;
 }

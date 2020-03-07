@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './icon/iconfont.css'
 import store from './store/index'
 import wangeditor from 'wangeditor'
+Vue.prototype.bus=new Vue();
 Vue.config.productionTip = false
 Vue.use(ElementUI,wangeditor)
 /* eslint-disable no-new */

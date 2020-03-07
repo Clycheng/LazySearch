@@ -3,11 +3,11 @@
     <!-- 发布文章选择分类 -->
     <div class="block">
       <span class="demonstration">选择文章分类</span>
-      <el-cascader v-model="value" :options="options"></el-cascader>
+      <el-cascader v-model="options.value" :options="options"></el-cascader>
     </div>
     <!-- 发布文章选择分类 -->
     <div class="title">
-      <input type="text" v-model="title" placeholder="请输入标题" />
+      <input type="text" v-model="title" placeholder="请输入标题：" />
     </div>
     <div id="Edit"></div>
     <button class="btnyu" @click="preview">预览效果</button>
@@ -31,7 +31,7 @@ export default {
         { value: "2", label: "后端" },
         { value: "3", label: "安卓" },
         { value: "4", label: "ios" }
-      ]
+      ],
     };
   },
   components: {},
@@ -41,19 +41,23 @@ export default {
       this.html = render;
     },
     submit() {
+      let token=sessionStorage.getItem("token");
+      let UserID=sessionStorage.getItem("UserID");
+      let author=sessionStorage.getItem("userName")
       lists({
         title: this.title,
         editorContent: this.editorContent,
-        author: "Clydecheng",
-        UserId: "123123",
-        author_name: "南派三叔",
-        type: this.value[0],
-        brief: this.editor.txt.text().substr(0, 105)
+        author: author,
+        UserId: UserID,
+        author_name: author,
+        type: this.options.value[0],
+        brief: this.editor.txt.text().substr(0, 105),
+        token:token,
       }).then(res => {
         if (res.data.code == 10007) {
-            console.log(res.data.message);
+          this.$message.success(res.data.message);
         }else{
-            console.log(res.data.message);
+            this.$message.error(res.data.message);
         }
       });
     },

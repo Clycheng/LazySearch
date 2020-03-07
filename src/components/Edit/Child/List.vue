@@ -1,14 +1,18 @@
 <template>
   <div class="list-warp">
-    <el-table :data="tableData" border style="width: 100%">
-      <el-table-column fixed prop="title" label="标题" width="180"></el-table-column>
-      <el-table-column prop="autor" label="作者" width="120"></el-table-column>
-      <el-table-column prop="tag" label="分类" width="120"></el-table-column>
-      <el-table-column prop="date" label="日期" width="200"></el-table-column>
-      <el-table-column prop="ID" label="ID" width="100"></el-table-column>
+    <el-table class="tableClass" :data="list" border style="width: 100%" v-loading="loading">
+      <el-table-column fixed prop="ID" label="ID"></el-table-column>
+      <el-table-column prop="post_author" label="用户名"></el-table-column>
+      <el-table-column prop="author_name" label="作者笔名"></el-table-column>
+      <el-table-column prop="post_title" label="文章标题"></el-table-column>
+      <el-table-column prop="post_date" label="发布日期"></el-table-column>
+      <el-table-column prop="Brief" label="文章简介"></el-table-column>
+      <el-table-column prop="post_type" label="文章类型"></el-table-column>
+      <el-table-column prop="comment_count" label="评论数量"></el-table-column>
+      <el-table-column prop="Img_Title" label="文章缩略图"></el-table-column>
       <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
-          <el-button type="primary" @click="handleClick(scope.row)" icon="el-icon-edit" circle></el-button>
+          <el-button type="primary" @click="handleClick(scope.row.ID)" icon="el-icon-edit" circle></el-button>
           <el-button type="danger" @click="handleDelete(scope.row)" icon="el-icon-delete" circle></el-button>
         </template>
       </el-table-column>
@@ -32,17 +36,17 @@ export default {
   name: "List",
   data() {
     return {
-      count: 10,
       list: [],
       page: 1,
       limit: 5,
       total: 0,
       start: "",
+      loading: true,
+      author: "",
+      UserId: "",
     };
   },
-    beforeMount(){
-
-    },
+  beforeMount() {},
   components: {
     // CommonList
   },
@@ -52,21 +56,32 @@ export default {
     currentPage(val) {
       this.page = val;
     },
+    
     inserts() {
-      inserttable(this.start = (this.page - 1) * 5).then(
-        res => {
-          console.log(res.data);
-          if (res.data) {
-            this.list = res.data.data;
-            this.total = res.data.total;
-            console.log(this.list);
-          }
+      let token=sessionStorage.getItem("token");
+      let UserID=sessionStorage.getItem("UserID");
+      inserttable({
+        token: token,
+        UserId: this.UserId=UserID,
+        start:this.start = (this.page - 1) * 5
+      }).then(res => {
+        console.log(res.data)
+        if (res.data.code == 200) {
+          this.loading=false;
+          this.list = res.data.data;
+          this.total = res.data.total;
+          // console.log(this.list);
         }
-      );
+      });
     },
     // 发送请求数据
     handleClick(row) {
-      console.log(row);
+      this.$router.push({
+        path: "../../Details",
+        query: {
+          id:row
+        }
+      });
     },
     handleDelete(e) {
       this.open();
@@ -92,7 +107,7 @@ export default {
         });
     }
   },
-    // 发送请求数据
+  // 发送请求数据
   mounted() {
     this.inserts();
   },
@@ -102,7 +117,7 @@ export default {
       this.inserts();
     }
   }
-    // 发送请求数据
+  // 发送请求数据
 };
 </script>
 

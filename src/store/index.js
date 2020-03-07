@@ -5,20 +5,23 @@ Vue.use(Vuex);
  const store =new Vuex.Store({//store对象
     state:{
         header:{
-            IsLogin:true,//是否注册
+            IsLogin:false,//是否登录
             LoginModel:false,//登录模态框开关,
             RegisterModel:false,//注册模态框开关
         },
         Edit:{
             NewArticle:{
-                title:"标题："+new Date().getTime(),
+                title:"请输入标题：",
                 content:"",
             }
         }
     },
     mutations:{
+        ChangeIsLoginss(state){
+            state.header.IsLogin =true;
+        },
         ChangeIsLogin(state){
-            state.header.IsLogin = !state.header.IsLogin
+                state.header.IsLogin = !state.header.IsLogin
         },
         ChangeLoginModel(state){
             console.log(state)

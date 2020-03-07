@@ -6,11 +6,6 @@
           <MainTab></MainTab>
       </el-main>
       <el-aside width="300px">
-        <!-- 首页登录 -->
-          <!-- <AsideLoginModel></AsideLoginModel> -->
-          <!-- 作者榜 -->
-          <!-- <Billboard></Billboard> -->
-          <!-- 热门排行 -->
           <Byingimg></Byingimg>
           <About></About>
       </el-aside>
@@ -23,8 +18,6 @@
 import Banner from "./Banner";
 import Breadcrumb from "./common/Breadcrumb";
 import MainTab from './mainChild/MainTab'
-// import AsideLoginModel from './asideChild/loginModel'
-// import Billboard from './asideChild/Billboard'
 import About from './asideChild/About'
 import Byingimg from './asideChild/Byingimg'
 export default {
@@ -33,8 +26,6 @@ export default {
     Breadcrumb,
     Banner,
     MainTab,
-    // AsideLoginModel,
-    // Billboard,
     About,
     Byingimg
   }

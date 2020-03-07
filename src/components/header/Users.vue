@@ -21,7 +21,7 @@
           </ul>
           <!---->
         </div>
-        <div class="col-xs-16 col-xs-offset-8 main">
+        <div class="col-xs-16 col-xs-offset-8 main" :model="users">
           <table>
             <thead>
               <tr>
@@ -48,38 +48,38 @@
               <tr>
                 <td class="setting-title">昵称</td>
                 <td>
-                  <input type="text" placeholder="请输入昵称" />
+                  <input type="text" placeholder="请输入昵称" :value="users.name" />
                 </td>
               </tr>
               <tr>
-                <td class="setting-title">密码</td>
+                <td class="setting-title">邮箱</td>
                 <td>
-                  <input type="text" placeholder="请输入新密码" />
+                  <input type="text" placeholder="请输入email" :value="users.email" />
                   <!---->
                 </td>
               </tr>
               <tr>
                 <td class="setting-title">手机</td>
                 <td>
-                  <input type="text" placeholder="请输入手机号" />
+                  <input type="text" placeholder="请输入手机号" :value="users.phone" />
                 </td>
               </tr>
               <tr>
                 <td class="setting-title">年龄</td>
                 <td>
-                  <input type="text" placeholder="请输入年龄" />
+                  <input type="text" placeholder="请输入年龄" :value="users.age" />
                 </td>
               </tr>
               <tr>
                 <td class="setting-title">性别</td>
                 <td>
-                  <input type="text" placeholder="请输入性别" />
+                  <input type="text" placeholder="请输入性别" :value="users.sex" />
                 </td>
               </tr>
               <tr>
                 <td class="setting-title">座右铭</td>
                 <td>
-                  <input type="text" placeholder="请输入座右铭" />
+                  <input type="text" placeholder="请输入座右铭" :value="users.motto" />
                 </td>
               </tr>
             </tbody>
@@ -96,16 +96,35 @@
 
 <script>
 /* eslint-disable */
+import { usersinsert } from "../../api/my/userinset";
 import Header from "../header/Head";
 export default {
   name: "Users",
   data() {
-    return {};
+    return {
+      users:[],
+    };
   },
   components: {
     Header
   },
-  methods: {}
+  methods: {
+    inserusers(){
+       let username =sessionStorage.getItem('userName');
+       let userid=sessionStorage.getItem('UserID');
+       usersinsert({
+          username:username,
+          userid:userid
+       }).then(res=>{
+         if(res.data.code==10001){
+           this.users=res.data.data
+         }
+       })
+    }
+  },
+  mounted(){
+    this.inserusers();
+  }
 };
 </script>
 

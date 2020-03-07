@@ -4,13 +4,20 @@
       <el-col :span="8">
         <div class="logo-warp">
           <router-link to="/">
-          <img src="http://www.chengxiaolei.top/wp-content/uploads/2018/11/logo-1.png" alt />
+            <img src="http://www.chengxiaolei.top/wp-content/uploads/2018/11/logo-1.png" alt />
           </router-link>
         </div>
       </el-col>
       <el-col :span="8">
         <div class="search-warp">
-          <el-input size="small" blur = "search"  @change = "Onchange" placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchInput"></el-input>
+          <el-input
+            size="small"
+            blur="search"
+            @change="Onchange"
+            placeholder="请输入内容"
+            prefix-icon="el-icon-search"
+            v-model="searchInput"
+          ></el-input>
         </div>
       </el-col>
       <el-col :span="8">
@@ -22,28 +29,42 @@
 
 <script>
 /* eslint-disable */
-import Menu from './Menu'
+import Menu from "./Menu";
 export default {
   name: "Header",
   data() {
     return {
-      searchInput: "",
-      
+      searchInput: ""
     };
   },
-  components:{
-      Menu
+  components: {
+    Menu
   },
-  methods:{
-    Onchange(){
-      this.$router.push(
-        {name:"Search",
-          params:{
-            val:this.searchInput
+  methods: {
+    Onchange() {
+      if(this.$route.name=='Search'){
+        this.bus.$emit('message',this.searchInput)
+      }else{
+        this.$router.push({
+          name: "Search",
+          params: {
+            val: this.searchInput
           }
-        }
-      )
+        });
+      }
+    },
+        // 刷新之后 根据本地存储的数据判断用户是否在线
+    shuaxin(){
+      let token=sessionStorage.getItem("token");
+      let UserID=sessionStorage.getItem("UserID");
+      let userName=sessionStorage.getItem("userName");
+      if(token&&UserID&&userName){
+        this.$store.commit("ChangeIsLoginss");
+      }
     }
+  },
+    created(){
+    this.shuaxin();
   }
 };
 </script>
@@ -67,11 +88,11 @@ export default {
   margin: 16px;
 }
 .search-warp {
-    margin-top: 3.5%;
-    text-align: right;
+  margin-top: 3.5%;
+  text-align: right;
 }
-.search-warp .el-input--prefix{
-    width: 45%;
-    height: 35px;
+.search-warp .el-input--prefix {
+  width: 45%;
+  height: 35px;
 }
 </style>  

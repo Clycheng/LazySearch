@@ -57,13 +57,13 @@
                   <span slot="label">
                     <i class="Lazy Lazywenzhang1"></i> 我的文章
                   </span>
-                  <CommonList :cat="{name:'Article',type:1}"></CommonList>
+                  <CommonList></CommonList>
                 </el-tab-pane>
                 <el-tab-pane name="Fab">
                   <span slot="label">
                     <i class="Lazy Lazyz-like"></i> 我的点赞
                   </span>
-                  <CommonList :cat="{name:'Fab',type:1}"></CommonList>
+                  <CommonList></CommonList>
                 </el-tab-pane>
                 <el-tab-pane name="Follow">
                   <span slot="label">

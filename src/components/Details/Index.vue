@@ -29,7 +29,7 @@ export default {
     return {};
   },
   beforeMount() {
-    console.log(this.$route.query.id)
+    // console.log(this.$route.query.id)
   },
   components: {
     Header,

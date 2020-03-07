@@ -1,82 +1,193 @@
 <template>
   <div>
-      <ul>
-          <li v-for="(item,index) of list" :key = "index">
-              <router-link  :to="{path:'/Details/'+item.id}">{{item.title}}</router-link>
-              <p><i class = "Lazy Lazyziyuan"></i><span>{{item.num}}</span> <i class = "Lazy Lazyyuedu"></i> <span>{{item.num}}</span></p>
-          </li>
-      </ul>
+    <ul
+      class="infinite-list"
+      infinite-scroll-distance="1010px"
+      style="overflow:auto"
+      :mode='list'
+      v-if="list.length"
+      v-loading="loading"
+    >
+          <!-- v-infinite-scroll="load"   在ul中-->
+      <li v-for="(item,index) in list" :key="index" class="list-item infinite-list-item">
+        <el-container>
+          <el-aside width="200px">
+            <img class="aside-img" :src="item.Img_Title" alt />
+          </el-aside>
+          <el-main>
+          <router-link :to='{ name: "Details", query: { id: item.ID }}'> <h2>{{item.post_title}}</h2></router-link>
+            <p>{{item.Brief}}</p>
+            <div class="details-warp">
+              <span style="color:#66B1FF;font-size:12px">
+                <i class="Lazy Lazyyuedu1"></i>
+                123
+              </span>
+              <router-link to="#">{{item.author_name}}</router-link>
+              <span style="color:#B4BBCE;font-size:12px">
+                <i class="Lazy Lazypinglun2"></i>
+                {{item.comment_count}}
+              </span>
+            </div>
+          </el-main>
+        </el-container>
+      </li>
+  <el-pagination
+    layout="prev, pager, next"
+    :page-size='limit'
+    @current-change="currentPage"
+    :total="total">
+  </el-pagination>
+    </ul>
+    <div class="elsetext" v-else>暂无搜索内容</div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
+import {ordersget} from "../../../api/text/wentext";
 export default {
-    name:"CommnList",
-    props:[
-        "tab"
-    ],
-    data(){
-        return{
-            ActiveClass:{
-                "Fab":"",
-                "ready":""
-            },
-             list:[
-                {
-                    title:"vue中cookie的使用和date对象的使用",
-                    id:1,
-                    type:"hot",
-                    num:123
-                },
-                {
-                    title:"高级前端面试题目大全(一)",
-                     id:2,
-                    type:"Fab",
-                       num:123
-                },
-                {
-                    title:"js 中splice()详解(插入、删除或替换数组的元素)",
-                     id:3,
-                     type:"ready",
-                        num:123
-                }
-            ]
-        }
+  name: "CommnList",
+  props: ["tab"],
+  data() {
+    return {
+      ActiveClass: {
+        Fab: "",
+        ready: ""
+      },
+      list: [],
+      page: 1,
+      limit: 5,
+      total: 0,
+      start: "",
+      val:"",
+      loading:true,
+    };
+  },
+  computed: {
+    // TitleSpilce(e){
+    //     return function(e){
+    //         return e.substr(0,15)
+    //     }
+    // }
+  },
+  methods: {
+    payquery(val) {
+      this.start=(this.page-1)*5
+      ordersget(val,this.start).then(res => {
+      if(res.data.code==200){
+              this.loading=false;
+              this.list=res.data.data;
+              this.total=res.data.total;
+          }
+      });
     },
-    computed:{
-        // TitleSpilce(e){
-        //     return function(e){
-        //         return e.substr(0,15)
-        //     }
-        // }
-    },
-    beforeMount(){
-         console.log(this.tab)
-         this.list[0].type = this.tab
+    currentPage(val) {
+      this.page = val;
     }
-}
+  },
+  mounted() {
+    //   接受搜索框中值
+    this.val = this.$route.params.val;
+    //   接受搜索框中值
+    this.payquery(this.val);
+    // 在本页面中搜索 
+    this.bus.$on('message',res=>{
+      this.val=res
+      this.payquery(this.val);
+    })
+    // 在本页面中搜索
+  },
+  watch: {
+    page() {
+      //监听  点击1  2  3  上面内容切换
+      this.payquery(this.val);
+    }
+  },
+//   beforeMount() {
+//     console.log(this.tab);
+//     this.list[0].type = this.tab;
+//   }
+};
 </script>
 
 <style scoped>
-a{
-    display: inline-block;
-    padding: 15px 15px 0px 15px
+.list-item {
+  width: 100%;
+  background: white;
+  height: auto;
+  margin-top: 35px;
+  margin-bottom: 15px;
+  box-shadow: 5px 4px 5px #eee9e9;
 }
-    a:hover{
-        text-decoration: underline;
-    }
-    p{
-        padding-top: 5px;
-        padding-left: 10px;
-         color:rgb(184, 183, 183)
-    }
-    p i {
-        font-size: 12px;
-        margin-left: 10px;
-    }
-    p span{
-        font-size: 12px;
-        color:rgb(184, 183, 183)
-    }
+.list-item h2 {
+  width: 90%;
+  color: #2f2f2f;
+  font-weight: bold;
+  font-size: 17px;
+}
+.list-item h2:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.list-item p {
+  margin-top: 2%;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  font-size: 12px;
+  width: 90%;
+  color: #999;
+  text-overflow: ellipsis;
+  text-indent: 25px;
+  line-height: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.el-main {
+  padding: 25px;
+  margin-left: 15px;
+}
+.el-aside {
+  position: relative;
+  width: 200px;
+  height: 120px;
+  margin: 20px;
+  left: 0;
+  overflow: hidden;
+  transition: 0.2s;
+  text-align: center;
+}
+.el-aside:hover {
+  left: 10px;
+}
+.aside-img {
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.details-warp {
+  margin-top: 2%;
+  max-height: 25px;
+}
+.details-warp span {
+  letter-spacing: 1px;
+  margin-left: 15px;
+}
+.details-warp span i {
+  font-size: 12px;
+}
+.details-warp a {
+  margin-left: 15px;
+  font-size: 12px;
+  color: #b4bbce;
+}
+.elsetext{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 200px;
+    font-size: 50px;
+    color: #2f2f2f;
+    font-weight: 700;
+}
 </style>

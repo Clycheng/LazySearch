@@ -5,14 +5,8 @@
         <span slot="label">
           <i class="Lazy Lazywenzhang1"></i> 我的文章
         </span>
-        <CommonList :cat="{name:'Article',type:1}" ></CommonList>
+        <CommonList :cat="{name:'Article'}" ></CommonList>
       </el-tab-pane>
-      <el-tab-pane name = "Fab">
-        <span slot="label">
-          <i class="Lazy Lazyz-like"></i> 我的点赞
-        </span>
-       <CommonList :cat="{name:'Fab',type:1}" ></CommonList>
-      </el-tab-pane >
       <el-tab-pane name = "Follow">
         <span slot="label">
           <i class="Lazy Lazyguanzhu3"></i> 我的关注
@@ -31,7 +25,7 @@
 
 <script>
 /* eslint-disable */
-import CommonList from '../../main/common/CommonList'
+import CommonList from './CommonList'
 import FollowList from './FollowList'
 import Fenlist from './Fenlist'
 export default {
