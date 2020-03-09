@@ -15,7 +15,8 @@
           <div class="autor-message">
             <p class="autor-name">
               <router-link to="#">{{textwen.author_name}}</router-link>
-              <el-button size="mini" round>关注</el-button>
+              <el-button :class="state?'guan2':'guan1'" size="mini" round @click="guan">关注</el-button>
+              <el-button :class="state?'guan1':'guan2'" size="mini" round>已关注</el-button>
               <!-- 评分 -->
               <el-rate v-model="value2" :colors="colors"></el-rate>
               <!-- 评分 -->
@@ -28,7 +29,7 @@
           </div>
         </el-main>
       </el-container>
-      <div v-html="content" id="connet-warp"></div>
+      <!-- <div v-html="content" id="connet-warp"></div> -->
       <div v-html="textwen.post_content" id="connet-warp">{{textwen.post_content}}</div>
     </div>
     <!-- 评论 -->
@@ -62,9 +63,9 @@
                 </i>
                 <span>快去和朋友交流自己的想法吧！</span>
               </div>
-              <div class="_3Tp4of">
+              <div class="_3Tp4of" @click="pingluntext">
                 <button type="button" class="_1OyPqC _3Mi9q9 _1YbC5u" disabled>
-                  <span @click="pingluntext">发布</span>
+                  <span>发布</span>
                 </button>
               </div>
             </div>
@@ -80,7 +81,7 @@
         </div>
       </h3>
       <!-- 用户评论 -->
-      <div class="_2gPNSa" v-for="(item,index) in pin" :key="index">
+      <div class="_2gPNSa" v-for="(item,index) in pin" :key="index" v-loading="loading">
         <div class="_2IUqvs _3uuww8" id="comment-54200911">
           <a class="_1OhGeD" href="/u/5330826245e3" target="_blank" rel="noopener noreferrer">
             <img
@@ -96,30 +97,18 @@
                 href="/u/5330826245e3"
                 target="_blank"
                 rel="noopener noreferrer"
-              >{{item.username}}</a>
+              >{{item.comment_author}}</a>
             </div>
             <div class="_1xqkrI">
-              <span>{{item.num}}楼</span>
-              <time datetime="2020-02-26T09:27:12.000Z">{{item.time}}</time>
+              <span>{{index+1}}楼</span>
+              <time datetime="2020-02-26T09:27:12.000Z">{{item.comment_date}}</time>
             </div>
-            <div class="_2bDGm4">{{item.text}}</div>
+            <div class="_2bDGm4">{{item.comment_content}}</div>
             <div class="_2ti5br">
               <div class="_3MyyYc">
-                <span
-                  class="_2GXD2V _1Jvkh4"
-                  v-show="!showCommentInput"
-                  @click="showCommentInput = !showCommentInput"
-                >
+                <span class="_2GXD2V _1Jvkh4" @click="fabzan(item.comment_ID)">
                   <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
-                  赞
-                </span>
-                <span
-                  class="_2GXD2V _1Jvkh4 _2GXD2Vyincang"
-                  v-show="showCommentInput"
-                  @click="showCommentInput = !showCommentInput"
-                >
-                  <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
-                  赞
+                  {{item.Fab_Num}} 赞
                 </span>
               </div>
             </div>
@@ -135,6 +124,7 @@
 <script>
 /* eslint-disable */
 import { queryAbout } from "../../../api/text/wentext";
+import { pingluned, guanzuo, zanfab } from "../../../api/text/pin";
 export default {
   name: "Article",
   data() {
@@ -144,34 +134,38 @@ export default {
       content: "",
       textwen: [],
       textlength: "",
+      // 关注状态码
+      state: "",
+      // 用户信息
+      users: [
+        {
+          username: "",
+          name: "",
+          age: "",
+          motto: "",
+          email: "",
+          phone: "",
+          sex: ""
+        }
+      ],
+      post_id: "",
       // 评分
       value2: 4.5,
       colors: ["#99A9BF", "#F7BA2A", "#FF9900"],
       // 评分
-      showCommentInput: false,
       // 评论的内容
       textpinlun: "",
       // 评论的内容
-      pin: [
-        {
-          username: "文泽",
-          num: "1",
-          time: "02.26 17:27",
-          text: "写的很好，才女👍"
-        },
-        {
-          username: "张浩",
-          num: "2",
-          time: "02.27 18:25",
-          text: "你特娘的太有才了"
-        },
-        {
-          username: "晓磊",
-          num: "3",
-          time: "02.27 20:03",
-          text: "太好了写的，真不错啊。"
-        }
-      ]
+      pin: [],
+      user: {
+        username: "",
+        UserId: "",
+        token: ""
+      },
+      follow: {
+        username: "",
+        UserId: ""
+      }
     };
   },
   props: ["category"],
@@ -202,16 +196,9 @@ export default {
     // console.log(tag_img)
   },
   methods: {
-    // 发布评论
-    pingluntext() {
-      console.log(this.textpinlun);
-    },
-    // 发布评论
-    ajxa(e) {
-      // console.log(e);
-    },
     // 获取详情
     aboutQuery(id) {
+      this.post_id = id;
       queryAbout(id).then(res => {
         if (res.status == 200) {
           this.loading = false;
@@ -219,8 +206,98 @@ export default {
           this.textlength = res.data[0].post_content.length;
         }
       });
-    }
+    },
     // 获取详情
+    // 关注
+    guan() {
+      let token = sessionStorage.getItem("token"); // token
+      let UserID = sessionStorage.getItem("UserID"); // 唯一表示id
+      let userName = sessionStorage.getItem("userName"); // 用户名
+      if (userName && token && UserID) {
+        let user = {
+          username: userName,
+          UserId: UserID,
+          token: token
+        };
+        let follow = {
+          username: this.textwen.post_author,
+          UserId: this.textwen.Author_Id
+        };
+        guanzuo({ user, follow }).then(res => {
+          if (res.data.code == 100010 || res.data.code == 100011) {
+            this.state = true;
+          } else {
+            this.state = false;
+          }
+        });
+      } else {
+        this.$notify({
+          message: "登录之后才可以关注",
+          offset: 100,
+          type: "warning",
+          duration: 1500
+        });
+      }
+    },
+    // 发布评论
+    async pingluntext() {
+      let userName = sessionStorage.getItem("userName"); // 用户名
+      let token = sessionStorage.getItem("token");
+      let UserId = sessionStorage.getItem("UserID");
+      let author_name = sessionStorage.getItem("author_name");
+      if (userName && token && UserId) {
+        if (this.textpinlun == "") {
+          this.$notify({
+            message: "评论不能为空",
+            offset: 100,
+            type: "warning",
+            duration: 1500
+          });
+          return;
+        }
+        let res = await pingluned({
+          post_id: this.post_id,
+          comment_content: this.textpinlun,
+          author: author_name,
+          token: token,
+          UserId: UserId
+        });
+        if (res.data.code == 10010) {
+          this.loading=false;
+          this.pin = res.data.Comments;
+          this.textpinlun = null;
+        }
+      } else {
+        this.$notify({
+          message: "登录之后才可以评论",
+          offset: 100,
+          type: "warning",
+          duration: 1500
+        });
+      }
+    },
+    // 点赞
+    async fabzan(comment_ID) {
+      let token = sessionStorage.getItem("token");
+      let UserId = sessionStorage.getItem("UserID");
+      let author_name = sessionStorage.getItem("author_name");
+      let res = await zanfab({
+        userId: UserId,
+        author: author_name,
+        token: token,
+        comments_id: comment_ID
+      });
+      if (res.data.code == 10010) {
+        this.loading=false;
+        this.$notify({
+          message: "点赞成功",
+          offset: 100,
+          type: "success",
+          duration: 1500
+        });
+      }
+    },
+    ajxa(e) {}
   }
 };
 </script>
@@ -333,4 +410,10 @@ a {
   font-weight: bold;
 }
 /* 字体隐藏 */
+/* 关注 */
+.guan1 {
+}
+.guan2 {
+  display: none;
+}
 </style>

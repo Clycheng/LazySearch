@@ -92,8 +92,9 @@ export default {
         console.log(res.data);
         if (res.data.code == 10006) {
           sessionStorage.setItem("token", res.data.data[0].token); //保存token
-          sessionStorage.setItem("UserID", res.data.data[0].UserID); //保存UserID
+          sessionStorage.setItem("UserID", res.data.data[0].UserID); //保存UserID author_name
           sessionStorage.setItem("userName", res.data.data[0].userName); //保存userName
+          sessionStorage.setItem("author_name", res.data.data[0].author_name); //保存author_name
           this.$store.commit("ChangeIsLogin");
           this.$store.commit("ChangeLoginModel");
           this.$notify({

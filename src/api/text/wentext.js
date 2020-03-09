@@ -19,5 +19,8 @@ function ordersget(val,start){
 function mytext(data){
     return instance.post('http://39.107.105.166:8081/myart',data)
 }
-// 获取我的文章
-export {lists,inserttext,queryAbout,inserttable,ordersget,mytext}
+// 删除文章
+function delecttext(data){
+    return instance.post('http://39.107.105.166:8081/delPostList',data)
+}
+export {lists,inserttext,queryAbout,inserttable,ordersget,mytext,delecttext}

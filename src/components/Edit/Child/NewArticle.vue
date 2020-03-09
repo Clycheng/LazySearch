@@ -40,27 +40,31 @@ export default {
       // render 为 markdown 解析后的结果[html]
       this.html = render;
     },
+    // 提交文章
     submit() {
       let token=sessionStorage.getItem("token");
       let UserID=sessionStorage.getItem("UserID");
+      let author_name=sessionStorage.getItem("author_name");
       let author=sessionStorage.getItem("userName")
       lists({
         title: this.title,
         editorContent: this.editorContent,
         author: author,
         UserId: UserID,
-        author_name: author,
+        author_name: author_name,
         type: this.options.value[0],
         brief: this.editor.txt.text().substr(0, 105),
         token:token,
       }).then(res => {
         if (res.data.code == 10007) {
+          this.$router.go(0)
           this.$message.success(res.data.message);
         }else{
             this.$message.error(res.data.message);
         }
       });
     },
+    // 预览文章
     preview() {
       this.$router.push({
         name: "Details",

@@ -1,16 +1,29 @@
 <template>
   <div class="edit-warp">
-    <el-upload
-      class="upload-demo"
-      action="https://jsonplaceholder.typicode.com/posts/"
-      :on-preview="handlePreview"
-      :on-remove="handleRemove"
-      :file-list="fileList"
-      list-type="picture"
-    >
-      <el-button size="small" type="primary">点击上传</el-button>
-      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+    <el-upload action="#" list-type="picture-card" :auto-upload="false">
+      <i slot="default" class="el-icon-plus"></i>
+      <div slot="file" slot-scope="{file}">
+        <img class="el-upload-list__item-thumbnail" :src="file.url" alt />
+        <span class="el-upload-list__item-actions">
+          <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
+            <i class="el-icon-zoom-in"></i>
+          </span>
+        </span>
+      </div>
     </el-upload>
+    <!-- 图片放大功能开发时候对element-ui原样式进行了修改 -->
+    <el-dialog :visible.sync="dialogVisible">
+      <img width="100%" :src="dialogImageUrl" alt />
+    </el-dialog>
+    <el-button class="btnsc" type="primary" round>上传</el-button>
+    <el-table>
+      <el-table-column label="网络缩略图" prop>
+        <template slot-scope="scope">
+          <img width="100" :src="scope.row.gthumb" title="scope.row.gthumb" />
+        </template>
+      </el-table-column>
+      <el-table-column label="图片地址" prop></el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -20,45 +33,25 @@ export default {
   name: "Intimg",
   data() {
     return {
-      fileList: [
-        {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        },
-        {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        }
-      ]
+      dialogImageUrl: "",
+      dialogVisible: false,
     };
   },
   components: {},
   methods: {
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
     },
-    handlePreview(file) {
-      console.log(file);
-    }
   },
   mounted() {}
 };
 </script>
-
 <style  scoped>
 .edit-warp {
   margin-top: 35px;
+}
+.btnsc {
+  margin: 30px 0 30px 30px;
 }
 </style>

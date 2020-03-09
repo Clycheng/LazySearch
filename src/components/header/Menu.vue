@@ -93,6 +93,7 @@ export default {
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('UserID');
       sessionStorage.removeItem('userName');
+      sessionStorage.removeItem('author_name');
       this.$router.push("/");
     },
     // 刷新之后 根据本地存储的数据判断用户是否在线

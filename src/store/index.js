@@ -24,7 +24,6 @@ Vue.use(Vuex);
                 state.header.IsLogin = !state.header.IsLogin
         },
         ChangeLoginModel(state){
-            console.log(state)
             state.header.LoginModel = !state.header.LoginModel
         },
         ChangeRegisterModel(state){

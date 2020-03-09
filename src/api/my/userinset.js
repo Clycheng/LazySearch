@@ -30,4 +30,8 @@ function usersinsert(data){
         params:data
     })
 }
-export {loginin,findUsers,findtell,logince,phonepay,usersinsert}
+// 修改个人信息 
+function usersup(data){
+    return instance.post('http://39.107.105.166:8081/updatePerson',data)
+}
+export {loginin,findUsers,findtell,logince,phonepay,usersinsert,usersup}

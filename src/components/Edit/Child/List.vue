@@ -13,7 +13,7 @@
       <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
           <el-button type="primary" @click="handleClick(scope.row.ID)" icon="el-icon-edit" circle></el-button>
-          <el-button type="danger" @click="handleDelete(scope.row)" icon="el-icon-delete" circle></el-button>
+          <el-button type="danger" @click="handleDelete(scope.row.ID)" icon="el-icon-delete" circle></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -31,7 +31,7 @@
 <script>
 /* eslint-disable */
 // import CommonList from '../../main/common/CommonList'
-import { inserttable } from "../../../api/text/wentext";
+import { inserttable, delecttext } from "../../../api/text/wentext";
 export default {
   name: "List",
   data() {
@@ -43,7 +43,7 @@ export default {
       start: "",
       loading: true,
       author: "",
-      UserId: "",
+      UserId: ""
     };
   },
   beforeMount() {},
@@ -56,18 +56,18 @@ export default {
     currentPage(val) {
       this.page = val;
     },
-    
+
     inserts() {
-      let token=sessionStorage.getItem("token");
-      let UserID=sessionStorage.getItem("UserID");
+      let token = sessionStorage.getItem("token");
+      let UserID = sessionStorage.getItem("UserID");
       inserttable({
         token: token,
-        UserId: this.UserId=UserID,
-        start:this.start = (this.page - 1) * 5
+        UserId: (this.UserId = UserID),
+        start: (this.start = (this.page - 1) * 5)
       }).then(res => {
-        console.log(res.data)
+        console.log(res.data);
         if (res.data.code == 200) {
-          this.loading=false;
+          this.loading = false;
           this.list = res.data.data;
           this.total = res.data.total;
           // console.log(this.list);
@@ -79,32 +79,27 @@ export default {
       this.$router.push({
         path: "../../Details",
         query: {
-          id:row
+          id: row
         }
       });
     },
-    handleDelete(e) {
-      this.open();
-    },
-    open() {
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          // 此处删除
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
+    // 删除文章
+    async handleDelete(row) {
+      let UserId = sessionStorage.getItem("UserID");
+      let token = sessionStorage.getItem("token");
+      let res = await delecttext({
+        UserId: UserId,
+        token: token,
+        postId: row
+      });
+      if (res.data.code == 10010) {
+        // 此处删除
+        this.$router.go(0);
+        this.$message({
+          type: "success",
+          message: "删除成功!"
         });
+      }
     }
   },
   // 发送请求数据
