@@ -9,8 +9,10 @@ function inserttext(type,start){
 function inserttable(data){
     return instance.post('http://39.107.105.166:8081/myart',data)
 }
-function queryAbout(id) {
-    return instance.get('http://39.107.105.166:8081/getDetails?id='+id)
+function queryAbout(data) {
+    return instance.get('http://39.107.105.166:8081/getDetails',{
+        params:data
+    })
 }
 function ordersget(val,start){
     return instance.get('http://39.107.105.166:8081/globalSearch?content='+val+'&start='+start)

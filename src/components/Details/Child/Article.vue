@@ -5,10 +5,7 @@
       <el-container class="autor">
         <el-aside width="50px">
           <router-link class="autor-img" to="#">
-            <img
-              src="https://upload.jianshu.io/users/upload_avatars/6778531/66e3f92e-e6c0-454d-87a4-92e8377e33c5.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
-              alt
-            />
+            <img :src="textwen.Img_Title" alt />
           </router-link>
         </el-aside>
         <el-main>
@@ -33,13 +30,9 @@
       <div v-html="textwen.post_content" id="connet-warp">{{textwen.post_content}}</div>
     </div>
     <!-- 评论 -->
-    <div class="comment">
+    <div class="comment" :model="personData">
       <div class="_26JdYM">
-        <img
-          class="_3LHFA-"
-          src="https://upload.jianshu.io/users/upload_avatars/6778531/66e3f92e-e6c0-454d-87a4-92e8377e33c5.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
-          alt
-        />
+        <img class="_3LHFA-" :src="personData.imageTitle" alt />
         <div class="_3GKFE3">
           <textarea class="_1u_H4i" placeholder="写下你的评论..." v-model="textpinlun"></textarea>
           <div>
@@ -106,7 +99,11 @@
             <div class="_2bDGm4">{{item.comment_content}}</div>
             <div class="_2ti5br">
               <div class="_3MyyYc">
-                <span class="_2GXD2V _1Jvkh4" @click="fabzan(item.comment_ID)">
+                <span class="_2GXD2V _1Jvkh4" :class="zanstate?'guan2':'guan1'" @click="fabzan(item.comment_ID)">
+                  <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
+                  {{item.Fab_Num}} 赞
+                </span>
+                <span class="_2GXD2V _1Jvkh4" :class="zanstate?'guan1':'guan2'" @click="fabzan(item.comment_ID)">
                   <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
                   {{item.Fab_Num}} 赞
                 </span>
@@ -129,6 +126,7 @@ export default {
   name: "Article",
   data() {
     return {
+      id: "",
       loading: true,
       title: "",
       content: "",
@@ -136,6 +134,8 @@ export default {
       textlength: "",
       // 关注状态码
       state: "",
+      // 点赞状态
+      zanstate: "",
       // 用户信息
       users: [
         {
@@ -165,7 +165,9 @@ export default {
       follow: {
         username: "",
         UserId: ""
-      }
+      },
+      // g个人信息
+      personData: []
     };
   },
   props: ["category"],
@@ -197,15 +199,26 @@ export default {
   },
   methods: {
     // 获取详情
-    aboutQuery(id) {
+    async aboutQuery(id) {
+      let UserID = sessionStorage.getItem("UserID"); // 唯一表示id
       this.post_id = id;
-      queryAbout(id).then(res => {
-        if (res.status == 200) {
-          this.loading = false;
-          this.textwen = res.data[0];
-          this.textlength = res.data[0].post_content.length;
-        }
+      let res = await queryAbout({
+        id: this.post_id,
+        userId: UserID
       });
+      console.log(res.data);
+      if (res.status == 200) {
+        this.loading = false;
+        this.textwen = res.data.data[0];
+        this.pin = res.data.commmentData;
+        this.personData = res.data.personData;
+        if (res.data.isMy == true) {
+          this.state = res.data.isMy;
+        } else {
+          this.state = res.data.isMyFollow;
+        }
+        this.textlength = res.data.data[0].post_content.length;
+      }
     },
     // 获取详情
     // 关注
@@ -263,7 +276,7 @@ export default {
           UserId: UserId
         });
         if (res.data.code == 10010) {
-          this.loading=false;
+          this.loading = false;
           this.pin = res.data.Comments;
           this.textpinlun = null;
         }
@@ -288,13 +301,14 @@ export default {
         comments_id: comment_ID
       });
       if (res.data.code == 10010) {
-        this.loading=false;
-        this.$notify({
-          message: "点赞成功",
-          offset: 100,
-          type: "success",
-          duration: 1500
-        });
+          this.$notify({
+            message: "点赞成功",
+            offset: 100,
+            type: "success",
+            duration: 1500
+          });
+          this.zanstate == true;
+          this.aboutQuery(this.id);
       }
     },
     ajxa(e) {}
@@ -306,7 +320,8 @@ export default {
 @import url("../../../assets/css/pinglun.css");
 h1 {
   width: 100%;
-  padding-left: 15px;
+  padding-left: 25px;
+    padding-top: 20px;
   line-height: 45px;
   height: 45px;
   font-size: 25px;
@@ -317,8 +332,9 @@ h1 {
   margin-bottom: 15px;
 }
 .autor {
-  padding-left: 15px;
+  padding-left: 25px;
   color: rgb(181, 184, 189);
+  margin-top: 15px;
 }
 .autor-img {
   display: block;
@@ -345,7 +361,7 @@ h1 {
 }
 #connet-warp {
   /* width: 852px; */
-  padding: 24px;
+  padding: 30px;
 
   /* 自动换行 */
   word-wrap: break-word;
@@ -412,6 +428,7 @@ a {
 /* 字体隐藏 */
 /* 关注 */
 .guan1 {
+  color: #54a2eb;
 }
 .guan2 {
   display: none;

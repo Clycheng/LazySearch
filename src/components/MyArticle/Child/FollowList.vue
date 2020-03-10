@@ -25,7 +25,7 @@
               </div>
               <div class="meta">
                 <span>关注 {{item.age}}</span>
-                <span>粉丝 {{item.phone}}</span>
+                <span>电话 {{item.phone}}</span>
               </div>
             </div>
           </li>
