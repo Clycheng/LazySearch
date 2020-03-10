@@ -190,4 +190,7 @@ export default {
     color: #2f2f2f;
     font-weight: 700;
 }
+.el-pagination{
+  text-align: center;
+}
 </style>

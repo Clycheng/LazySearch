@@ -65,7 +65,6 @@ export default {
         UserId: (this.UserId = UserID),
         start: (this.start = (this.page - 1) * 5)
       }).then(res => {
-        console.log(res.data);
         if (res.data.code == 200) {
           this.loading = false;
           this.list = res.data.data;
@@ -120,7 +119,7 @@ export default {
 .list-warp {
   margin-top: 25px;
 }
-.el-pagination {
-  margin: 5px 0 0 300px;
+.el-pagination{
+  text-align: center;
 }
 </style>

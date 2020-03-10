@@ -159,4 +159,7 @@ mounted() {
   font-size: 12px;
   color: #b4bbce;
 }
+.el-pagination{
+  text-align: center;
+}
 </style>

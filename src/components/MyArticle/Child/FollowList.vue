@@ -43,7 +43,7 @@ export default {
   name: "FollowList",
   data() {
     return {
-      state:null,
+      state: null,
       author: [
         {
           name: "",
@@ -64,7 +64,6 @@ export default {
         username: username,
         userId: UserID
       }).then(res => {
-        console.log(res.data);
         if (res.data.data == "您还没有一个关注哦") {
           this.$notify({
             message: "还没有人关注您哦",
@@ -72,7 +71,7 @@ export default {
             type: "warning",
             duration: 1500
           });
-          this.state=true;
+          this.state = true;
         } else {
           this.author = res.data.data;
         }

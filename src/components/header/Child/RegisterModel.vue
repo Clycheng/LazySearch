@@ -38,11 +38,16 @@
             placeholder="请输入验证码"
             prefix-icon="Lazy Lazymima"
           ></el-input>
-          <el-button type="primary" @click="payphone()">发送验证码</el-button>
+          <el-button v-show="show" type="primary" @click="payphone()">发送验证码</el-button>
+          <el-button
+            v-show="!show"
+            type="primary"
+            :loading="true"
+            style="width:112px;height:40px;margin-left:0;"
+          >{{count}}秒</el-button>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <!-- <el-button type="primary" @click="centerDialogVisible = false">注册</el-button> -->
         <el-button type="primary" @click="loginzhu()">注册</el-button>
       </span>
     </el-dialog>
@@ -61,6 +66,11 @@ export default {
   name: "LoginModel",
   data() {
     return {
+      // 倒数
+      show: true,
+      count: "",
+      timer: null,
+      // 倒数
       centerDialogVisible: true,
       formLabelAlign: {
         name: "",
@@ -83,26 +93,48 @@ export default {
   methods: {
     // 手机验证码请求
     payphone() {
-      phonepay({ phone: this.formLabelAlign.phone }).then(res => {
-        console.log(res.data);
-      });
+      if (!this.formLabelAlign.phone == "") {
+        // 倒数
+        const TIME_COUNT = 60;
+        if (!this.timer) {
+          this.count = TIME_COUNT;
+          this.show = false;
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--;
+            } else {
+              this.show = true;
+              clearInterval(this.timer);
+              this.timer = null;
+            }
+          }, 1000);
+        }
+        // 倒数
+        phonepay({ phone: this.formLabelAlign.phone }).then(res => {
+          if (res.data.code == 101010) {
+            this.$notify({
+              message: "300秒内禁止发送",
+              offset: 100,
+              type: "warning",
+              duration: 2000
+            });
+            return;
+          }
+        });
+      } else {
+        this.$notify({
+          message: "手机号不能为空",
+          offset: 100,
+          type: "warning",
+          duration: 2000
+        });
+      }
     },
     Login() {
       this.$store.commit("ChangeRegisterModel");
     },
     // 用户名表单值发生变化触发   用户名验证是否注册
     userChange(name) {
-      if (name) {
-        // 使用正则来判断输入的用户名是否有汉字
-        // if (/[\u4E00-\u9FA5]/g.test(name)) {
-        //   this.$notify({
-        //     message: "用户名不能为汉字",
-        //     offset: 100,
-        //     type: "warning",
-        //     duration: 1500
-        //   });
-        // }
-      }
       if (this.userFlag) {
         clearTimeout(this.userFlag);
       }
@@ -114,14 +146,14 @@ export default {
                 message: "用户名不能为空",
                 offset: 100,
                 type: "warning",
-                duration: 1500
+                duration: 2000
               });
             } else {
               this.$notify({
                 message: "用户名未注册",
                 offset: 100,
                 type: "success",
-                duration: 1500
+                duration: 2000
               });
             }
           } else {
@@ -129,7 +161,7 @@ export default {
               message: "用户名已注册",
               offset: 100,
               type: "warning",
-              duration: 1500
+              duration: 2000
             });
           }
         });
@@ -148,14 +180,14 @@ export default {
                 message: "电话号码不能为空",
                 offset: 100,
                 type: "warning",
-                duration: 1500
+                duration: 2000
               });
             } else {
               this.$notify({
                 message: "电话号码未注册",
                 offset: 100,
                 type: "success",
-                duration: 1500
+                duration: 2000
               });
             }
           } else {
@@ -163,7 +195,7 @@ export default {
               message: "电话号码已注册",
               offset: 100,
               type: "warning",
-              duration: 1500
+              duration: 2000
             });
           }
         });
@@ -171,31 +203,45 @@ export default {
     },
     // 注册
     loginzhu() {
-      logince({
-        name: this.formLabelAlign.name,
-        phone: this.formLabelAlign.phone,
-        password: this.formLabelAlign.password,
-        code: this.formLabelAlign.code
-      }).then(res => {
-        console.log(res.data);
-        if (res.data.code == 10003) {
-          this.$store.commit("ChangeRegisterModel");
-          this.$store.commit("ChangeLoginModel");
-          this.$notify({
-            message: "注册成功",
-            offset: 100,
-            type: "success",
-            duration: 1500
-          });
-        } else {
-          this.$notify({
-            message: "注册失败",
-            offset: 100,
-            type: "warning",
-            duration: 1500
-          });
-        }
-      });
+      if (
+        this.formLabelAlign.name &&
+        this.formLabelAlign.phone &&
+        this.formLabelAlign.password &&
+        this.formLabelAlign.code
+      ) {
+        logince({
+          name: this.formLabelAlign.name,
+          phone: this.formLabelAlign.phone,
+          password: this.formLabelAlign.password,
+          code: this.formLabelAlign.code
+        }).then(res => {
+          console.log(res.data);
+          if (res.data.code == 10003) {
+            this.$store.commit("ChangeRegisterModel");
+            this.$store.commit("ChangeLoginModel");
+            this.$notify({
+              message: "注册成功",
+              offset: 100,
+              type: "success",
+              duration: 2000
+            });
+          } else {
+            this.$notify({
+              message: "注册失败",
+              offset: 100,
+              type: "warning",
+              duration: 2000
+            });
+          }
+        });
+      } else {
+        this.$notify({
+          message: "请将内容补全再进行注册！thinkyou！",
+          offset: 100,
+          type: "warning",
+          duration: 2000
+        });
+      }
     }
   }
 };

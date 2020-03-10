@@ -11,7 +11,7 @@
         <el-main>
           <div class="autor-message">
             <p class="autor-name">
-              <router-link to="#">{{textwen.author_name}}</router-link>
+              <router-link class="authname" to="#">{{textwen.author_name}}</router-link>
               <el-button :class="state?'guan2':'guan1'" size="mini" round @click="guan">关注</el-button>
               <el-button :class="state?'guan1':'guan2'" size="mini" round>已关注</el-button>
               <!-- 评分 -->
@@ -206,7 +206,6 @@ export default {
         id: this.post_id,
         userId: UserID
       });
-      console.log(res.data);
       if (res.status == 200) {
         this.loading = false;
         this.textwen = res.data.data[0];
@@ -361,7 +360,7 @@ h1 {
 }
 #connet-warp {
   /* width: 852px; */
-  padding: 30px;
+  padding: 0 30px 30px 30px;
 
   /* 自动换行 */
   word-wrap: break-word;
@@ -418,7 +417,10 @@ a {
 .item {
   margin: 10px 40px 30px 20px;
 }
-
+.authname{
+  font-weight: 700;
+  font-size: 20px;
+}
 /* 字体隐藏 赞 */
 ._2GXD2Vyincang {
   color: #54a2eb;

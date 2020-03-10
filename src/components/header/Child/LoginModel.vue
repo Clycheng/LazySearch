@@ -65,14 +65,14 @@ export default {
                 message: "用户名不能为空",
                 offset: 100,
                 type: "warning",
-                duration: 1500
+                duration: 2000
               });
             } else {
               this.$notify({
                 message: "用户名未注册",
                 offset: 100,
                 type: "warning",
-                duration: 1500
+                duration: 2000
               });
             }
           } else {
@@ -80,7 +80,7 @@ export default {
               message: "用户名正确",
               offset: 100,
               type: "success",
-              duration: 1500
+              duration: 2000
             });
           }
         });
@@ -88,30 +88,38 @@ export default {
     },
     // 登录
     loginok(formLabelAlign) {
-      loginin(formLabelAlign).then(res => {
-        console.log(res.data);
-        if (res.data.code == 10006) {
-          sessionStorage.setItem("token", res.data.data[0].token); //保存token
-          sessionStorage.setItem("UserID", res.data.data[0].UserID); //保存UserID author_name
-          sessionStorage.setItem("userName", res.data.data[0].userName); //保存userName
-          sessionStorage.setItem("author_name", res.data.data[0].author_name); //保存author_name
-          this.$store.commit("ChangeIsLogin");
-          this.$store.commit("ChangeLoginModel");
-          this.$notify({
-            message: "登录成功",
-            offset: 100,
-            type: "success",
-            duration: 1500
-          });
-        } else {
-          this.$notify({
-            message: "登录失败",
-            offset: 100,
-            type: "warning",
-            duration: 1500
-          });
-        }
-      });
+      if (this.formLabelAlign.name && this.formLabelAlign.password) {
+        loginin(formLabelAlign).then(res => {
+          if (res.data.code == 10006) {
+            sessionStorage.setItem("token", res.data.data[0].token); //保存token
+            sessionStorage.setItem("UserID", res.data.data[0].UserID); //保存UserID author_name
+            sessionStorage.setItem("userName", res.data.data[0].userName); //保存userName
+            sessionStorage.setItem("author_name", res.data.data[0].author_name); //保存author_name
+            this.$store.commit("ChangeIsLogin");
+            this.$store.commit("ChangeLoginModel");
+            this.$notify({
+              message: "登录成功",
+              offset: 100,
+              type: "success",
+              duration: 2000
+            });
+          } else {
+            this.$notify({
+              message: "登录失败",
+              offset: 100,
+              type: "warning",
+              duration: 2000
+            });
+          }
+        });
+      } else {
+        this.$notify({
+          message: "请将内容补全再进行登录！thinkyou！",
+          offset: 100,
+          type: "warning",
+          duration: 2000
+        });
+      }
     },
     Login() {
       this.$store.commit("ChangeLoginModel");

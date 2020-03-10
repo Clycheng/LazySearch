@@ -7,6 +7,8 @@ import Edit from '@/components/Edit/Index'
 import NewArticle from '@/components/Edit/Child/NewArticle'
 import List from '@/components/Edit/Child/List'
 import Intimg from '@/components/Edit/Child/Intimg'
+import upload from '@/components/Edit/Child/upload'
+import imgtable from '@/components/Edit/Child/imgtable'
 import Default from '@/components/Edit/Child/Default'
 import Preview from '@/components/Edit/Child/Preview'
 import MyArticle from '@/components/MyArticle/Index'
@@ -58,7 +60,17 @@ export default new Router({
           path: 'Intimg',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
           name: 'Intimg',
           component: Intimg
-        }
+        },
+        {
+          path: 'upload',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
+          name: 'upload',
+          component: upload
+        },
+        {
+          path: 'imgtable',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
+          name: 'imgtable',
+          component: imgtable
+        },
       ]
     },
     {

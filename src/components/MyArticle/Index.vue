@@ -6,69 +6,43 @@
       </el-header>
       <el-main id="main">
         <el-container>
-          <el-main width="600px">
+          <el-main width="600px"  :model="user">
             <div class="main-top">
               <div class="main-top-left">
                 <img
-                  src="https://upload.jianshu.io/users/upload_avatars/18010683/3567d0a8-0ca2-4066-8281-956bc1467db2?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240"
+                  :src="user.imageTitle"
                   alt
                 />
               </div>
-              <div class="main-top-right" v-for="(item,index) in user" :key="index">
-                <h1>{{item.username}}</h1>
+              <div class="main-top-right">
+                <h1>{{user.name}}</h1>
                 <div class="message">
-                  <el-tooltip class="item" effect="dark" content="关注量" placement="top-start">
+                  <el-tooltip class="item" effect="dark" content="邮箱信息" placement="top-start">
                     <router-link to>
-                      <i class="Lazy Lazyguanzhu3"></i>关注
-                      <span>{{item.guan}}</span>
+                      <i class="el-icon-platform-eleme"></i>邮箱
+                      <span>{{user.email}}</span>
                     </router-link>
                   </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="粉丝数"
-                    placement="top-start"
-                  >
+                  <el-tooltip class="item" effect="dark" content="联系方式" placement="top-start">
                     <router-link to>
-                      <i class="Lazy Lazyfensi1"></i>粉丝
-                      <span>{{item.fensi}}</span>
+                      <i class="el-icon-phone"></i>电话
+                      <span>{{user.phone}}</span>
                     </router-link>
                   </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="文章数"
-                    placement="top-start"
-                  >
+                  <el-tooltip class="item" effect="dark" content="性别" placement="top-start">
                     <router-link to>
-                      <i class="Lazy Lazywenzhang1"></i>文章
-                      <span>{{item.wen}}</span>
+                      <i class="el-icon-user-solid"></i>性别
+                      <span>{{user.sex}}</span>
                     </router-link>
                   </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="点赞数"
-                    placement="top-start"
-                  >
+                  <el-tooltip class="item" effect="dark" content="年龄" placement="top-start">
                     <router-link to>
-                      <i class="Lazy Lazyz-like"></i>点赞
-                      <span>{{item.zan}}</span>
-                    </router-link>
-                  </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="喜欢数"
-                    placement="top-start"
-                  >
-                    <router-link to>
-                      <i class="Lazy Lazyhuabanfuben"></i>收获喜欢
-                      <span>{{item.huan}}</span>
+                      <i class="el-icon-s-data"></i>年龄
+                      <span>{{user.age}}</span>
                     </router-link>
                   </el-tooltip>
                 </div>
-                <h3>{{item.jie}}</h3>
+                <h3>简介：{{user.motto}}</h3>
               </div>
             </div>
             <div class="content">
@@ -119,13 +93,13 @@
                 </a>
               </div>
               <div class="asdieimg">
-                  <img src="../../assets/banner1.png" alt="">
+                <img src="../../assets/banner1.png" alt />
               </div>
               <div class="asdieimg">
-                  <img src="../../assets/viptop.png" alt="">
+                <img src="../../assets/viptop.png" alt />
               </div>
             </div>
-                        <!-- 个人中心的侧内容 -->
+            <!-- 个人中心的侧内容 -->
           </el-aside>
         </el-container>
       </el-main>
@@ -135,30 +109,37 @@
 
 <script>
 /* eslint-disable */
+import { usersinsert } from "../../api/my/userinset";
 import Header from "../header/Head";
 import MainTab from "./Child/MainTab";
 export default {
   name: "MyArticle",
   data() {
     return {
-      user: [
-        {
-          username: "晓磊",
-          jie:
-            "熟悉es6,nodejs;熟悉mvvm开发模式;熟悉使用react,vue...熟悉Ajax,CSS等Web相关前端技术、熟悉HTML5、CSS3;熟悉各主流浏览器的兼容性调试,有相关的性能优化经验,具有良好的编程习惯;具有很强的业务需求分析能力、问题定位和沟通表达能力; ",
-          guan: "56284",
-          fensi: "856942",
-          wen: "562",
-          zan: "98658",
-          huan: "666"
-        }
-      ]
+      user:[],
     };
   },
   components: {
     Header,
     MainTab,
-    num: 1231231 //填充数字 可删
+  },
+  methods: {
+    // 获取个人信息
+    inserusers() {
+      let username = sessionStorage.getItem("userName");
+      let userid = sessionStorage.getItem("UserID");
+      usersinsert({
+        username: username,
+        userid: userid
+      }).then(res => {
+        if (res.data.code == 10001) {
+          this.user = res.data.data;
+        }
+      });
+    }
+  },
+  mounted(){
+    this.inserusers();
   }
 };
 </script>
@@ -196,7 +177,7 @@ export default {
 }
 .main-top-right h1 {
   font-weight: bold;
-  margin-top: 10px;
+  margin: 10px 0;
   font-size: 25px;
 }
 .main-top-right .message a:nth-child(1) {
@@ -227,99 +208,100 @@ export default {
 .content {
   padding-left: 55px;
   margin-top: 45px;
+  height: 1076px;
 }
 
 /* 个人中心 侧内容 */
 
 .sticky-section[data-v-398d293d] {
- position:fixed;
- top:127px
+  position: fixed;
+  top: 127px;
 }
 .sticky-section .section[data-v-398d293d] {
- width:240px;
- overflow:hidden;
- border-radius:2px;
- box-shadow:0 1px 3px 0 rgba(4,5,13,.23);
- background-color:#fff
+  width: 240px;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px 0 rgba(4, 5, 13, 0.23);
+  background-color: #fff;
 }
 .sticky-section .section .slogan[data-v-398d293d] {
- padding:15px 16px;
- border-bottom:1px solid #e6e8e8
+  padding: 15px 16px;
+  border-bottom: 1px solid #e6e8e8;
 }
 .sticky-section .section .slogan .title[data-v-398d293d] {
- font-size:15px;
- color:#000
+  font-size: 15px;
+  color: #000;
 }
 .sticky-section .section .slogan .desc[data-v-398d293d] {
- margin-top:8px;
- line-height:1.4;
- font-size:14px;
- color:#646464
+  margin-top: 8px;
+  line-height: 1.4;
+  font-size: 14px;
+  color: #646464;
 }
 .sticky-section .section .wechat-qr[data-v-398d293d] {
- padding:12px 16px
+  padding: 12px 16px;
 }
 .sticky-section .section .wechat-qr .title[data-v-398d293d] {
- font-size:15px
+  font-size: 15px;
 }
 .sticky-section .section .wechat-qr .qr-img[data-v-398d293d] {
- margin-top:9px;
- height:95px;
- background:url('../../assets/shouw.png') no-repeat center 0;
- background-size:contain;
- border-radius:2px
+  margin-top: 9px;
+  height: 95px;
+  background: url("../../assets/shouw.png") no-repeat center 0;
+  background-size: contain;
+  border-radius: 2px;
 }
 .sticky-section .help[data-v-398d293d] {
- margin-top:10px;
- display:flex;
- justify-content:center;
- align-items:center
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .sticky-section .help .items[data-v-398d293d] {
- flex-grow:1;
- display:flex;
- height:90px;
- justify-content:center;
- align-items:center;
- flex-direction:column;
- color:#71777b
+  flex-grow: 1;
+  display: flex;
+  height: 90px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #71777b;
 }
 .sticky-section .help .items[data-v-398d293d]:hover {
- background-color:#f9f9f9
+  background-color: #f9f9f9;
 }
 .sticky-section .help .items[data-v-398d293d]:first-child {
- position:relative
+  position: relative;
 }
 .sticky-section .help .items[data-v-398d293d]:first-child:after {
- content:"";
- position:absolute;
- width:0;
- height:45px;
- top:50%;
- right:0;
- transform:translateY(-50%);
- border-right:1px solid #efefef
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 45px;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  border-right: 1px solid #efefef;
 }
 .sticky-section .help .items img[data-v-398d293d] {
- width:auto;
- height:28px
+  width: auto;
+  height: 28px;
 }
 .sticky-section .help .items .title[data-v-398d293d] {
- margin-top:8px;
- font-size:14px
+  margin-top: 8px;
+  font-size: 14px;
 }
 .sticky-section .book-new-user-ticket-for-book-index[data-v-398d293d] {
- margin-top:10px
+  margin-top: 10px;
 }
 .top .sticky-section[data-v-398d293d] {
- top:67px
+  top: 67px;
 }
-.asdieimg{
+.asdieimg {
   width: 240px;
   height: 80px;
-  margin-top: 10px
+  margin-top: 10px;
 }
-.asdieimg img{
+.asdieimg img {
   width: 100%;
   height: 100%;
 }

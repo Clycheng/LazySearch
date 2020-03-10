@@ -69,7 +69,6 @@ export default {
         UserId: this.UserId=UserID,
         start:this.start = (this.page - 1) * 5
       }).then(res => {
-        console.log(res.data)
         if (res.data.code == 200) {
           this.loading=false;
           this.list = res.data.data;
@@ -172,5 +171,8 @@ mounted() {
   margin-left: 15px;
   font-size: 12px;
   color: #b4bbce;
+}
+.el-pagination{
+  text-align: center;
 }
 </style>
