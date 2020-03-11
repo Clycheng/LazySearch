@@ -11,7 +11,7 @@ Vue.use(Vuex);
         },
         Edit:{
             NewArticle:{
-                title:"请输入标题：",
+                title:"",
                 content:"",
             }
         }

@@ -15,4 +15,16 @@ function followmy(data){
 function zanfab(data){
     return instance.post('http://39.107.105.166:8081/addFab',data)
 }
-export {pingluned,guanzuo,followmy,zanfab}
+// 热门推荐首页
+function hotmen(){
+    return instance.get('http://39.107.105.166:8081/getHotList')
+}
+// 作者排行榜
+function authers(){
+    return instance.get('http://39.107.105.166:8081/getAuthorList')
+}
+// 获取我的粉丝
+function fenmy(data){
+    return instance.post('http://39.107.105.166:8081/getFollow',data)
+}
+export {pingluned,guanzuo,followmy,zanfab,hotmen,authers,fenmy}

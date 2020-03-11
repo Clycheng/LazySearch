@@ -215,7 +215,6 @@ export default {
           password: this.formLabelAlign.password,
           code: this.formLabelAlign.code
         }).then(res => {
-          console.log(res.data);
           if (res.data.code == 10003) {
             this.$store.commit("ChangeRegisterModel");
             this.$store.commit("ChangeLoginModel");

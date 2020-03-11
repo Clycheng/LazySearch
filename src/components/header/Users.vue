@@ -14,7 +14,7 @@
                 </div>
                 <span>个人设置</span>
                 <span>----</span>
-                <span>对个人信息进行修改</span>
+                <span>可在表单中直接对个人信息进行修改</span>
                 <!---->
               </a>
             </li>
@@ -34,7 +34,7 @@
                 <td class="top-line">
                   <div class="avatar">
                     <img
-                      src="https://upload.jianshu.io/users/upload_avatars/21067682/2f134b0f-29c6-400a-9c3d-d12ee5a32871?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300"
+                      :src="users.imageTitle"
                     />
                   </div>
                 </td>
@@ -48,7 +48,12 @@
               <tr>
                 <td class="setting-title">用户名</td>
                 <td>
-                  <input type="text" placeholder="用户名不可修改" v-model="users.username" />
+                  <input
+                    type="text"
+                    @focus="usernone"
+                    placeholder="用户名不可修改"
+                    v-model="users.username"
+                  />
                 </td>
               </tr>
               <tr>
@@ -114,6 +119,7 @@ export default {
   data() {
     return {
       users: {
+        imageTitle:"",
         username: "",
         name: "",
         age: "",
@@ -136,8 +142,8 @@ export default {
         username: username,
         userid: userid
       }).then(res => {
-        console.log(res.data);
         if (res.data.code == 10001) {
+          console.log(res.data)
           this.users = res.data.data;
         }
       });
@@ -164,6 +170,15 @@ export default {
           type: "success",
           duration: 1500
         });
+      });
+    },
+    // 修改用户名，获取焦点粗发提示
+    usernone() {
+      this.$notify({
+        message: "用户名禁止修改！",
+        offset: 100,
+        type: "warning",
+        duration: 1500
       });
     }
   },

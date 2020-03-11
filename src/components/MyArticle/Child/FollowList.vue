@@ -10,14 +10,14 @@
           <li v-for="(item,index) in author" :key="index" :class="state?'guan2':'guan1'">
             <a class="avatar" href="/u/37dc24d75db2">
               <img
-                src="https://upload.jianshu.io/users/upload_avatars/14776810/35256ec5-0e54-4c46-906a-f362e0b71ed6.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+                :src="item.imageTitle"
                 alt="180"
               />
             </a>
             <div class="info">
               <a class="name" href="/u/37dc24d75db2">{{item.name}}</a>
-              <i class="el-icon-female"></i>
-              <!-- <i class="el-icon-male"></i> -->
+              <i v-show="item.sex =='女'" class="el-icon-female"></i>
+              <i v-show="item.sex =='男'" class="el-icon-male"></i>
               <div class="meta">
                 <span>关注 {{item.Follownum}}</span>
                 <span>粉丝 {{item.Fansnum}}</span>
@@ -57,6 +57,7 @@ export default {
     };
   },
   methods: {
+    // 获取关注的用户信息
     myfollow() {
       let username = sessionStorage.getItem("userName");
       let UserID = sessionStorage.getItem("UserID");

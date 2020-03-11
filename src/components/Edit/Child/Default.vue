@@ -45,7 +45,7 @@
     <div class="connet">
       <p>用代码重塑人生</p>
       <p>用文章改变生活</p>
-      <p>----懒搜科技</p>
+      <p>----极光JG科技</p>
     </div>
   </div>
 </template>

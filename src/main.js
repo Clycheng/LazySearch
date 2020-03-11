@@ -18,5 +18,12 @@ new Vue({
   router,
   store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
 })
+// 跳转页面默认出现在顶部
+router.afterEach((to,from, next) => {
+
+  window.scrollTo(0,0)
+
+})
+// 跳转页面默认出现在顶部

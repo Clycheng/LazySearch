@@ -103,6 +103,7 @@ export default {
               type: "success",
               duration: 2000
             });
+            this.$router.push("/");
           } else {
             this.$notify({
               message: "登录失败",

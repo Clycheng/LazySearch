@@ -7,7 +7,7 @@
     </div>
     <!-- 发布文章选择分类 -->
     <div class="title">
-      <input type="text" v-model="title" placeholder="请输入标题：" />
+      <input type="text" @blur="titlenone" v-model="title" placeholder="请输入标题：" />
     </div>
     <div id="Edit"></div>
     <button class="btnyu" @click="preview">预览效果</button>
@@ -31,21 +31,32 @@ export default {
         { value: "2", label: "后端" },
         { value: "3", label: "安卓" },
         { value: "4", label: "ios" }
-      ],
+      ]
     };
   },
   components: {},
   methods: {
+    // 标题失去焦点检查有无标题内容
+    titlenone(){
+      if(this.title==""){
+                this.$notify({
+          message: "文章标题不能为空",
+          offset: 100,
+          type: "warning",
+          duration: 1500
+        });
+      }
+    },
     change(value, render) {
       // render 为 markdown 解析后的结果[html]
       this.html = render;
     },
     // 提交文章
     submit() {
-      let token=sessionStorage.getItem("token");
-      let UserID=sessionStorage.getItem("UserID");
-      let author_name=sessionStorage.getItem("author_name");
-      let author=sessionStorage.getItem("userName")
+      let token = sessionStorage.getItem("token");
+      let UserID = sessionStorage.getItem("UserID");
+      let author_name = sessionStorage.getItem("author_name");
+      let author = sessionStorage.getItem("userName");
       lists({
         title: this.title,
         editorContent: this.editorContent,
@@ -54,22 +65,31 @@ export default {
         author_name: author_name,
         type: this.options.value[0],
         brief: this.editor.txt.text().substr(0, 105),
-        token:token,
+        token: token
       }).then(res => {
         if (res.data.code == 10007) {
-          this.$router.go(0)
+          this.$router.go(0);
           this.$message.success(res.data.message);
-        }else{
-            this.$message.error(res.data.message);
+        } else {
+          this.$message.error(res.data.message);
         }
       });
     },
     // 预览文章
     preview() {
-      this.$router.push({
-        name: "Details",
-        params: { id: "preview" }
-      });
+      if (this.editorContent) {
+        this.$router.push({
+          name: "Details",
+          params: { id: "preview" }
+        });
+      } else {
+        this.$notify({
+          message: "文章内容不能为空",
+          offset: 100,
+          type: "warning",
+          duration: 1500
+        });
+      }
     }
   },
   mounted() {
@@ -82,7 +102,6 @@ export default {
         content: this.editorContent
       };
       this.$store.commit("ChangeNewArticle", obj);
-      //     console.log(this.editorContent)
       //   this.catchData(this.editorContent); // 把这个html通过catchData的方法传入父组件
     };
     this.editor.customConfig.menus = [

@@ -1,16 +1,16 @@
 <template>
-  <el-carousel :interval="4000" type="card" height="400px">
+  <el-carousel :interval="4000" type="card" height="400px" width="800px">
     <el-carousel-item class="bannerimg">
       <img src="../../assets/wen1.jpeg" alt="">
     </el-carousel-item>
     <el-carousel-item class="bannerimg">
-      <img src="../../assets/banner1.png" alt="">
+      <img src="../../assets/jgimg4.png" alt="">
     </el-carousel-item>
     <el-carousel-item class="bannerimg">
-      <img src="../../assets/banner2.jpg" alt="">
+      <img src="../../assets/jgimg3.jpg" alt="">
     </el-carousel-item>
     <el-carousel-item class="bannerimg">
-      <img src="../../assets/banner3.jpg" alt="">
+      <img src="../../assets/jgimg6.jpg" alt="">
     </el-carousel-item>
   </el-carousel>
 </template>
@@ -42,6 +42,10 @@ export default {
   
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
+  }
+  .bannerimg{
+    width: 700px;
+    height: 400px;
   }
   .bannerimg  img{
     width: 100%;

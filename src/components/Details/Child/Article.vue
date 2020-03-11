@@ -3,9 +3,9 @@
     <div class="warp" :model="textwen">
       <h1>{{textwen.post_title}}</h1>
       <el-container class="autor">
-        <el-aside width="50px">
+        <el-aside width="50px" :model="personData">
           <router-link class="autor-img" to="#">
-            <img :src="textwen.Img_Title" alt />
+            <img :src="personData.imageTitle" alt />
           </router-link>
         </el-aside>
         <el-main>
@@ -79,7 +79,7 @@
           <a class="_1OhGeD" href="/u/5330826245e3" target="_blank" rel="noopener noreferrer">
             <img
               class="_1_jhXc"
-              src="https://upload.jianshu.io/users/upload_avatars/6778531/66e3f92e-e6c0-454d-87a4-92e8377e33c5.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
+              :src="item.comment_img_title"
               alt
             />
           </a>
@@ -206,6 +206,7 @@ export default {
         id: this.post_id,
         userId: UserID
       });
+      console.log(res.data)
       if (res.status == 200) {
         this.loading = false;
         this.textwen = res.data.data[0];

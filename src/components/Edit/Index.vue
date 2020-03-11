@@ -121,8 +121,7 @@ h3:hover{
  .head {
    line-height: 60px;
    text-align: center;
-    /* margin-left: 300px; */
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   font-size: 45px;
   color: #404040;
   text-shadow: 0 1px 0 #fff;
