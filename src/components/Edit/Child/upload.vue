@@ -10,6 +10,7 @@
       <img v-if="imageUrl" :src="imageUrl" class="avatar">
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
+    <span>按修改图片</span>
   </div>
 </template>
 <script>
@@ -54,6 +55,7 @@ export default {
         formdata.append('file', req.file)
         formdata.append('token', res.data.token)
         formdata.append('key', keyname)
+        console.log(formdata);
        const imghandle = "?	imageMogr2/auto-orient/thumbnail/400x/blur/1x0/quality/75|watermark/1/image/aHR0cDovL3d3dy5sYW5zb3V5dW4uY29tL2xvZ28ucG5n/dissolve/33/gravity/Center/dx/10/dy/10"
         // 获取到凭证之后再将文件上传到七牛云空间
         new Promise((reslove,reject)=>{

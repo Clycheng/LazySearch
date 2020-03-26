@@ -76,12 +76,8 @@
       <!-- 用户评论 -->
       <div class="_2gPNSa" v-for="(item,index) in pin" :key="index" v-loading="loading">
         <div class="_2IUqvs _3uuww8" id="comment-54200911">
-          <a class="_1OhGeD" href="/u/5330826245e3" target="_blank" rel="noopener noreferrer">
-            <img
-              class="_1_jhXc"
-              :src="item.comment_img_title"
-              alt
-            />
+          <a class="_1OhGeD" href target="_blank" rel="noopener noreferrer">
+            <img class="_1_jhXc" :src="item.comment_img_title" alt />
           </a>
           <div class="_1K9gkf">
             <div class="_23G05g">
@@ -99,14 +95,22 @@
             <div class="_2bDGm4">{{item.comment_content}}</div>
             <div class="_2ti5br">
               <div class="_3MyyYc">
-                <span class="_2GXD2V _1Jvkh4" :class="zanstate?'guan2':'guan1'" @click="fabzan(item.comment_ID)">
-                  <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
-                  {{item.Fab_Num}} 赞
-                </span>
-                <span class="_2GXD2V _1Jvkh4" :class="zanstate?'guan1':'guan2'" @click="fabzan(item.comment_ID)">
-                  <i aria-label="ic-like" class="anticon el-icon-thumb"></i>
-                  {{item.Fab_Num}} 赞
-                </span>
+                <el-badge
+                  :value="item.Fab_Num"
+                  :class="zanstate?'guan2':'guan1'"
+                  class="item"
+                  type="primary"
+                >
+                  <el-button class="zanbtn" size="small" @click="fabzan(item.comment_ID)">赞</el-button>
+                </el-badge>
+                <el-badge
+                  :value="item.Fab_Num"
+                  :class="zanstate?'guan1':'guan2'"
+                  class="item"
+                  type="primary"
+                >
+                  <el-button class="zanbtn" size="small"  @click="fabzan(item.comment_ID)">赞</el-button>
+                </el-badge>
               </div>
             </div>
           </div>
@@ -206,7 +210,7 @@ export default {
         id: this.post_id,
         userId: UserID
       });
-      console.log(res.data)
+      console.log(res.data);
       if (res.status == 200) {
         this.loading = false;
         this.textwen = res.data.data[0];
@@ -294,6 +298,7 @@ export default {
       let token = sessionStorage.getItem("token");
       let UserId = sessionStorage.getItem("UserID");
       let author_name = sessionStorage.getItem("author_name");
+      if(token&&UserId){
       let res = await zanfab({
         userId: UserId,
         author: author_name,
@@ -301,15 +306,24 @@ export default {
         comments_id: comment_ID
       });
       if (res.data.code == 10010) {
-          this.$notify({
-            message: "点赞成功",
-            offset: 100,
-            type: "success",
-            duration: 1500
-          });
-          this.zanstate == true;
-          this.aboutQuery(this.id);
+        this.$notify({
+          message: "点赞成功",
+          offset: 100,
+          type: "success",
+          duration: 1500
+        });
+        this.zanstate == true;
+        this.aboutQuery(this.id);
       }
+      }else{
+         this.$notify({
+          message: "登录之后才可以点赞",
+          offset: 100,
+          type: "warning",
+          duration: 1500
+        });
+      }
+
     },
     ajxa(e) {}
   }
@@ -321,7 +335,7 @@ export default {
 h1 {
   width: 100%;
   padding-left: 25px;
-    padding-top: 20px;
+  padding-top: 20px;
   line-height: 45px;
   height: 45px;
   font-size: 25px;
@@ -418,7 +432,7 @@ a {
 .item {
   margin: 10px 40px 30px 20px;
 }
-.authname{
+.authname {
   font-weight: 700;
   font-size: 20px;
 }
@@ -435,5 +449,11 @@ a {
 }
 .guan2 {
   display: none;
+}
+.zanbtn{
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
 }
 </style>

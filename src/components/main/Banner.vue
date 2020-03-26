@@ -1,7 +1,7 @@
 <template>
   <el-carousel :interval="4000" type="card" height="400px" width="800px">
     <el-carousel-item class="bannerimg">
-      <img src="../../assets/wen1.jpeg" alt="">
+      <img src="../../assets/banner1.png" alt="">
     </el-carousel-item>
     <el-carousel-item class="bannerimg">
       <img src="../../assets/jgimg4.png" alt="">

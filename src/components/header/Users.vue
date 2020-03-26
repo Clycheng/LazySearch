@@ -31,20 +31,37 @@
             </thead>
             <tbody class="base">
               <tr>
+                <td class="head_img">
+                  <img :src="users.imageTitle" />
+                </td>
+                <!-- <div class="setting_right" @click.stop="uploadHeadImg">
+                  <div class="caption">更改头像</div>
+                </div>-->
                 <td class="top-line">
-                  <div class="avatar">
-                    <img
-                      :src="users.imageTitle"
-                    />
+                  <a class="btn btn-hollow">
+                    <input unselectable="on" @click.stop="uploadHeadImg" class="hide" />
+                    更改头像
+                  </a>
+                </td>
+                <td class="top-line">
+                  <a class="btn btn-hollow">
+                    <input type="file" accept="image/*" @change="handleFile" class="hiddenInput" />
+                  </a>
+                </td>
+              </tr>
+              <!-- <tr>
+                <td class="top-line">
+                  <div class="avatar hiddenInput">
+                    <img :src="users.imageTitle" />
                   </div>
                 </td>
                 <td class="top-line">
                   <a class="btn btn-hollow">
-                    <input unselectable="on" type="file" class="hide" />
+                    <input unselectable="on" @click="uploadHeadImg" type="file" class="hide" />
                     更改头像
                   </a>
                 </td>
-              </tr>
+              </tr>-->
               <tr>
                 <td class="setting-title">用户名</td>
                 <td>
@@ -112,14 +129,15 @@
 
 <script>
 /* eslint-disable */
-import { usersinsert, usersup } from "../../api/my/userinset";
+import { usersinsert, usersup, uploadtu } from "../../api/my/userinset";
 import Header from "../header/Head";
 export default {
   name: "Users",
   data() {
     return {
+      iaimg:"",
       users: {
-        imageTitle:"",
+        imageTitle: "",
         username: "",
         name: "",
         age: "",
@@ -134,6 +152,60 @@ export default {
     Header
   },
   methods: {
+    // 打开图片上传
+    uploadHeadImg: function() {
+      // this.$el.querySelector('.hiddenInput').click()
+      let userid = sessionStorage.getItem("UserID");
+      let token = sessionStorage.getItem("token");
+      console.log(this.users.imageTitle)
+      uploadtu({
+        file: this.iaimg,
+        userid: userid,
+        token: token
+      }).then(res => {
+        console.log(res.data);
+      });
+    },
+    // 将头像显示  获取路径给iaimg
+    handleFile: function(e) {
+      let $target = e.target || e.srcElement;
+      let file = $target.files[0];
+      this.iaimg=file.name;
+      var reader = new FileReader();
+      reader.onload = data => {
+        let res = data.target || data.srcElement;
+        this.users.imageTitle = res.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    // 上传头像
+    // uploadHeadImg(e) {
+    //   if (e.target.files[0]) {
+    //     this.$notify({
+    //       message: "系统正在校验中，请重新选择图片",
+    //       offset: 100,
+    //       type: "warning",
+    //       duration: 3000
+    //     });
+    //     this.iaimg = e.target.files[0].name;
+    //     let userid = sessionStorage.getItem("UserID");
+    //     let token = sessionStorage.getItem("token");
+    //     uploadtu({
+    //       iaimg: this.iaimg,
+    //       userid: userid,
+    //       token: token
+    //     }).then(res => {
+    //       console.log(res.data);
+    //     });
+    //   } else {
+    //     this.$notify({
+    //       message: "请再次点击进行上传",
+    //       offset: 100,
+    //       type: "warning",
+    //       duration: 3000
+    //     });
+    //   }
+    // },
     // 获取个人信息
     inserusers() {
       let username = sessionStorage.getItem("userName");
@@ -143,7 +215,7 @@ export default {
         userid: userid
       }).then(res => {
         if (res.data.code == 10001) {
-          console.log(res.data)
+          console.log(res.data);
           this.users = res.data.data;
         }
       });
@@ -203,5 +275,42 @@ export default {
   left: 0;
   right: 0;
   z-index: 9999;
+}
+
+/* 头像 */
+.item_bock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 94px;
+  width: 300px;
+  padding: 0px 24px 0px 38px;
+  border-bottom: 1px solid #f7f7f7;
+  background: #fff;
+}
+.head_p {
+  height: 132px;
+}
+.head_img {
+  height: 90px;
+}
+.head_img img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50px;
+}
+.setting_right {
+  display: flex;
+  height: 37px;
+  justify-content: flex-end;
+  align-items: center;
+}
+.hiddenInput {
+  display: none;
+}
+.caption {
+  color: #8f8f8f;
+  font-size: 26px;
+  height: 37px;
 }
 </style>  

@@ -25,6 +25,6 @@ function authers(){
 }
 // 获取我的粉丝
 function fenmy(data){
-    return instance.post('http://39.107.105.166:8081/getFollow',data)
+    return instance.post('http://39.107.105.166:8081/getFans',data)
 }
 export {pingluned,guanzuo,followmy,zanfab,hotmen,authers,fenmy}

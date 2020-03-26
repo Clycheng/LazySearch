@@ -69,7 +69,7 @@ export default {
               });
             } else {
               this.$notify({
-                message: "用户名未注册",
+                message: "用户名未注册不可使用！",
                 offset: 100,
                 type: "warning",
                 duration: 2000

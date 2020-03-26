@@ -27,19 +27,19 @@ export default {
       editorContent: this.$store.state.Edit.NewArticle.content, //转换之后的html
       title: this.$store.state.Edit.NewArticle.title,
       options: [
-        { value: "1", label: "前端" },
-        { value: "2", label: "后端" },
-        { value: "3", label: "安卓" },
-        { value: "4", label: "ios" }
+        { value: "前端", label: "前端" },
+        { value: "后端", label: "后端" },
+        { value: "安卓", label: "安卓" },
+        { value: "ios", label: "ios" }
       ]
     };
   },
   components: {},
   methods: {
     // 标题失去焦点检查有无标题内容
-    titlenone(){
-      if(this.title==""){
-                this.$notify({
+    titlenone() {
+      if (this.title == "") {
+        this.$notify({
           message: "文章标题不能为空",
           offset: 100,
           type: "warning",
@@ -53,27 +53,46 @@ export default {
     },
     // 提交文章
     submit() {
-      let token = sessionStorage.getItem("token");
-      let UserID = sessionStorage.getItem("UserID");
-      let author_name = sessionStorage.getItem("author_name");
-      let author = sessionStorage.getItem("userName");
-      lists({
-        title: this.title,
-        editorContent: this.editorContent,
-        author: author,
-        UserId: UserID,
-        author_name: author_name,
-        type: this.options.value[0],
-        brief: this.editor.txt.text().substr(0, 105),
-        token: token
-      }).then(res => {
-        if (res.data.code == 10007) {
-          this.$router.go(0);
-          this.$message.success(res.data.message);
-        } else {
-          this.$message.error(res.data.message);
-        }
-      });
+      if (this.editorContent && this.title) {
+        let token = sessionStorage.getItem("token");
+        let UserID = sessionStorage.getItem("UserID");
+        let author_name = sessionStorage.getItem("author_name");
+        let author = sessionStorage.getItem("userName");
+        lists({
+          title: this.title,
+          editorContent: this.editorContent,
+          author: author,
+          UserId: UserID,
+          author_name: author_name,
+          type: this.options.value[0],
+          brief: this.editor.txt.text().substr(0, 105),
+          token: token
+        }).then(res => {
+          if (res.data.code == 10007) {
+            this.$router.go(0);
+            this.$notify({
+              message: "发表文章成功",
+              offset: 100,
+              type: "success",
+              duration: 1500
+            });
+          } else {
+            this.$notify({
+              message: "发表文章失败",
+              offset: 100,
+              type: "warning",
+              duration: 1500
+            });
+          }
+        });
+      } else {
+        this.$notify({
+          message: "文章内容不能为空",
+          offset: 100,
+          type: "warning",
+          duration: 1500
+        });
+      }
     },
     // 预览文章
     preview() {

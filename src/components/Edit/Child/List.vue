@@ -19,11 +19,11 @@
     </el-table>
     <!-- 分页 -->
     <el-pagination
-    layout="prev, pager, next"
-    :page-size='limit'
-    @current-change="currentPage"
-    :total="total">
-    </el-pagination>
+      layout="prev, pager, next"
+      :page-size="limit"
+      @current-change="currentPage"
+      :total="total"
+    ></el-pagination>
     <!-- 分页 -->
   </div>
 </template>
@@ -32,6 +32,9 @@
 /* eslint-disable */
 import { inserttable, delecttext } from "../../../api/text/wentext";
 export default {
+  // 注入依赖，。。。。。App.vue。。。。刷新
+  inject: ["reload"],
+  // 注入依赖，。。。。。App.vue。。。。刷新
   name: "List",
   data() {
     return {
@@ -46,8 +49,7 @@ export default {
     };
   },
   beforeMount() {},
-  components: {
-  },
+  components: {},
   computed: {},
   methods: {
     // 发送请求数据
@@ -90,13 +92,14 @@ export default {
       });
       if (res.data.code == 10010) {
         // 此处删除
-        this.$router.go(0);
-      this.$notify({
-        message: "删除成功",
-        offset: 100,
-        type: "success",
-        duration: 1500
-      });
+        this.$notify({
+          message: "删除成功",
+          offset: 100,
+          type: "success",
+          duration: 1500
+        });
+        // this.$router.go(0);
+        this.reload();
       }
     }
   },
