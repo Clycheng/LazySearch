@@ -173,7 +173,7 @@
 
 <script>
 /* eslint-disable */
-import Header from '../header/Head'
+import Header from "../header/Head";
 export default {
   name: "VIP",
   data() {
@@ -219,13 +219,13 @@ export default {
   color: #e4e1e1;
   font-size: 4.266667vw;
 }
- .el-header{
-     padding:0;
-     text-align: center;
-     position: fixed;
-     top: 0;
-     left: 0;
-     right: 0;
-     z-index: 9999;
- }
+.el-header {
+  padding: 0;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
 </style>
