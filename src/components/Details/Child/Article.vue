@@ -32,7 +32,7 @@
     <!-- 评论 -->
     <div class="comment" :model="personData">
       <div class="_26JdYM">
-        <img class="_3LHFA-" :src="personData.imageTitle" alt />
+        <img class="_3LHFA-" :src="imguser" alt />
         <div class="_3GKFE3">
           <textarea class="_1u_H4i" placeholder="写下你的评论..." v-model="textpinlun"></textarea>
           <div>
@@ -109,7 +109,7 @@
                   class="item"
                   type="primary"
                 >
-                  <el-button class="zanbtn" size="small"  @click="fabzan(item.comment_ID)">赞</el-button>
+                  <el-button class="zanbtn" size="small" @click="fabzan(item.comment_ID)">赞</el-button>
                 </el-badge>
               </div>
             </div>
@@ -171,7 +171,9 @@ export default {
         UserId: ""
       },
       // g个人信息
-      personData: []
+      personData: [],
+      // 当前用户的头像
+      imguser: []
     };
   },
   props: ["category"],
@@ -205,12 +207,14 @@ export default {
     // 获取详情
     async aboutQuery(id) {
       let UserID = sessionStorage.getItem("UserID"); // 唯一表示id
+      let User_img = sessionStorage.getItem("User_img");
+      this.imguser = User_img;
+      window.console.log(this.imguser)
       this.post_id = id;
       let res = await queryAbout({
         id: this.post_id,
         userId: UserID
       });
-      console.log(res.data);
       if (res.status == 200) {
         this.loading = false;
         this.textwen = res.data.data[0];
@@ -262,6 +266,7 @@ export default {
       let token = sessionStorage.getItem("token");
       let UserId = sessionStorage.getItem("UserID");
       let author_name = sessionStorage.getItem("author_name");
+      let User_img = sessionStorage.getItem("User_img");
       if (userName && token && UserId) {
         if (this.textpinlun == "") {
           this.$notify({
@@ -277,7 +282,8 @@ export default {
           comment_content: this.textpinlun,
           author: author_name,
           token: token,
-          UserId: UserId
+          UserId: UserId,
+          imgTitle: User_img
         });
         if (res.data.code == 10010) {
           this.loading = false;
@@ -298,32 +304,31 @@ export default {
       let token = sessionStorage.getItem("token");
       let UserId = sessionStorage.getItem("UserID");
       let author_name = sessionStorage.getItem("author_name");
-      if(token&&UserId){
-      let res = await zanfab({
-        userId: UserId,
-        author: author_name,
-        token: token,
-        comments_id: comment_ID
-      });
-      if (res.data.code == 10010) {
-        this.$notify({
-          message: "点赞成功",
-          offset: 100,
-          type: "success",
-          duration: 1500
+      if (token && UserId) {
+        let res = await zanfab({
+          userId: UserId,
+          author: author_name,
+          token: token,
+          comments_id: comment_ID
         });
-        this.zanstate == true;
-        this.aboutQuery(this.id);
-      }
-      }else{
-         this.$notify({
+        if (res.data.code == 10010) {
+          this.$notify({
+            message: "点赞成功",
+            offset: 100,
+            type: "success",
+            duration: 1500
+          });
+          this.zanstate == true;
+          this.aboutQuery(this.id);
+        }
+      } else {
+        this.$notify({
           message: "登录之后才可以点赞",
           offset: 100,
           type: "warning",
           duration: 1500
         });
       }
-
     },
     ajxa(e) {}
   }
@@ -450,7 +455,7 @@ a {
 .guan2 {
   display: none;
 }
-.zanbtn{
+.zanbtn {
   font-size: 14px;
   font-weight: 700;
   border-radius: 10px;

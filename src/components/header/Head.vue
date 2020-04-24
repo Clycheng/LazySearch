@@ -4,7 +4,7 @@
       <el-col :span="8">
         <div class="logo-warp">
           <router-link to="/">
-            <img src="http://www.chengxiaolei.top/wp-content/uploads/2018/11/logo-1.png" alt />
+            <img src="../../assets/极光logo.png" alt />
           </router-link>
         </div>
       </el-col>
@@ -83,9 +83,9 @@ export default {
   z-index: 9999;
 }
 .header-warp img {
-  height: 32px;
+  width: 140px;
+  height: 63px;
   background: rgba(255, 255, 255, 0.2);
-  margin: 16px;
 }
 .search-warp {
   margin-top: 3.5%;

@@ -91,10 +91,12 @@ export default {
       if (this.formLabelAlign.name && this.formLabelAlign.password) {
         loginin(formLabelAlign).then(res => {
           if (res.data.code == 10006) {
+            window.console.log(res)
             sessionStorage.setItem("token", res.data.data[0].token); //保存token
             sessionStorage.setItem("UserID", res.data.data[0].UserID); //保存UserID author_name
             sessionStorage.setItem("userName", res.data.data[0].userName); //保存userName
             sessionStorage.setItem("author_name", res.data.data[0].author_name); //保存author_name
+            sessionStorage.setItem("User_img", res.data.data[0].User_img); //保存User_img
             this.$store.commit("ChangeIsLogin");
             this.$store.commit("ChangeLoginModel");
             this.$notify({

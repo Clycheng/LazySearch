@@ -27,10 +27,10 @@ export default {
       editorContent: this.$store.state.Edit.NewArticle.content, //转换之后的html
       title: this.$store.state.Edit.NewArticle.title,
       options: [
-        { value: "前端", label: "前端" },
-        { value: "后端", label: "后端" },
-        { value: "安卓", label: "安卓" },
-        { value: "ios", label: "ios" }
+        { value: "1", label: "前端" },
+        { value: "2", label: "后端" },
+        { value: "3", label: "安卓" },
+        { value: "4", label: "ios" }
       ]
     };
   },
