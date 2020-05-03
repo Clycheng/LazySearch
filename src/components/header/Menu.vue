@@ -94,6 +94,7 @@ export default {
       sessionStorage.removeItem('UserID');
       sessionStorage.removeItem('userName');
       sessionStorage.removeItem('author_name');
+      sessionStorage.removeItem('User_img');
       this.$router.push("/");
     },
     // 刷新之后 根据本地存储的数据判断用户是否在线

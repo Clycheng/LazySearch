@@ -6,8 +6,8 @@
           <ul>
             <li @click="Jump('new')"><h3><i class = "Lazy Lazyplus"></i>新建文章</h3></li>
             <li @click="Jump('list')" ><h3><i class = "Lazy Lazycaidan4"></i>文章列表</h3></li>
-             <li @click="Jump('Intimg')" ><h3><i class = "el-icon-s-marketing"></i>上传网络图片</h3></li>
-             <li @click="Jump('imgtable')" ><h3><i class = "el-icon-s-marketing"></i>图片列表</h3></li>
+             <!-- <li @click="Jump('Intimg')" ><h3><i class = "el-icon-s-marketing"></i>上传网络图片</h3></li>
+             <li @click="Jump('imgtable')" ><h3><i class = "el-icon-s-marketing"></i>图片列表</h3></li> -->
           </ul>
       </el-aside>
       <el-container>
@@ -36,15 +36,15 @@ export default {
         BreadList:{
           "/Edit/new":"新建文章",
           "/Edit/list":"文章列表",
-           "/Edit/Intimg":"网络图片",
-           "/Edit/imgtable":"网络列表"
+          //  "/Edit/Intimg":"网络图片",
+          //  "/Edit/imgtable":"网络列表"
         },
         tab:{
               "/Edit":"文章中心",
               "/Edit/new":"新建文章",
               "/Edit/list":"文章列表",
-              "/Edit/Intimg":"网络图片",
-              "/Edit/imgtable":"网络列表"
+              // "/Edit/Intimg":"网络图片",
+              // "/Edit/imgtable":"网络列表"
           }
     }
   },

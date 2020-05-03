@@ -91,7 +91,7 @@ export default {
       if (this.formLabelAlign.name && this.formLabelAlign.password) {
         loginin(formLabelAlign).then(res => {
           if (res.data.code == 10006) {
-            window.console.log(res)
+            window.console.log(res);
             sessionStorage.setItem("token", res.data.data[0].token); //保存token
             sessionStorage.setItem("UserID", res.data.data[0].UserID); //保存UserID author_name
             sessionStorage.setItem("userName", res.data.data[0].userName); //保存userName
@@ -105,6 +105,16 @@ export default {
               type: "success",
               duration: 2000
             });
+            if (
+              !res.data.data[0].author_name
+            ) {
+              this.$notify({
+                message: "新用户必须去个人中心完善资料",
+                offset: 100,
+                type: "warning",
+                duration: 5000
+              });
+            }
             this.$router.push("/");
           } else {
             this.$notify({

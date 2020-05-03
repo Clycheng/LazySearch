@@ -10,7 +10,6 @@
       <input type="text" @blur="titlenone" v-model="title" placeholder="请输入标题：" />
     </div>
     <div id="Edit"></div>
-    <button class="btnyu" @click="preview">预览效果</button>
     <button class="btnjiao" @click="submit">提交</button>
   </div>
 </template>
@@ -94,22 +93,6 @@ export default {
         });
       }
     },
-    // 预览文章
-    preview() {
-      if (this.editorContent) {
-        this.$router.push({
-          name: "Details",
-          params: { id: "preview" }
-        });
-      } else {
-        this.$notify({
-          message: "文章内容不能为空",
-          offset: 100,
-          type: "warning",
-          duration: 1500
-        });
-      }
-    }
   },
   mounted() {
     this.editor = new E(Edit);

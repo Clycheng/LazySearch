@@ -10,7 +10,6 @@ import Intimg from '@/components/Edit/Child/Intimg'
 import upload from '@/components/Edit/Child/upload'
 import imgtable from '@/components/Edit/Child/imgtable'
 import Default from '@/components/Edit/Child/Default'
-import Preview from '@/components/Edit/Child/Preview'
 import MyArticle from '@/components/MyArticle/Index'
 import auother from '@/components/MyArticle/auother'
 import VIP from '@/components/VIP/index'
@@ -70,11 +69,6 @@ export default new Router({
           component: imgtable
         },
       ]
-    },
-    {
-      path: '/Preview',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
-      name: 'Preview',
-      component: Preview
     },
     {
       path: '/MyArticle',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。

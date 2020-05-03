@@ -2,10 +2,6 @@
   <div>
     <el-dialog title="注册" :visible.sync="centerDialogVisible" width="30%" center>
       <el-form label-width="0" :model="formLabelAlign">
-        <!-- <div :model="form">
-      <el-input placeholder="用户名" prefix-icon="Lazy Lazylogin_user" v-model="form.userName"></el-input>
-      <el-input placeholder="密码" prefix-icon="Lazy Lazymima" v-model="form.passWord"></el-input>
-        </div>-->
         <el-form-item label>
           <el-input
             v-model="formLabelAlign.name"

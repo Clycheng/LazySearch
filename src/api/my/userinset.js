@@ -34,8 +34,4 @@ function usersinsert(data){
 function usersup(data){
     return instance.post('http://39.107.105.166:8081/updatePerson',data)
 }
-// 上传头像
-function uploadtu(data){
-    return instance.post('http://39.107.105.166:8081/upHeadImg',data)
-}
 export {loginin,findUsers,findtell,logince,phonepay,usersinsert,usersup,uploadtu}

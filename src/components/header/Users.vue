@@ -34,34 +34,7 @@
                 <td class="head_img">
                   <img :src="users.imageTitle" />
                 </td>
-                <!-- <div class="setting_right" @click.stop="uploadHeadImg">
-                  <div class="caption">更改头像</div>
-                </div>-->
-                <td class="top-line">
-                  <a class="btn btn-hollow">
-                    <input unselectable="on" @click.stop="uploadHeadImg" class="hide" />
-                    更改头像
-                  </a>
-                </td>
-                <td class="top-line">
-                  <a class="btn btn-hollow">
-                    <input type="file" accept="image/*" @change="handleFile" class="hiddenInput" />
-                  </a>
-                </td>
               </tr>
-              <!-- <tr>
-                <td class="top-line">
-                  <div class="avatar hiddenInput">
-                    <img :src="users.imageTitle" />
-                  </div>
-                </td>
-                <td class="top-line">
-                  <a class="btn btn-hollow">
-                    <input unselectable="on" @click="uploadHeadImg" type="file" class="hide" />
-                    更改头像
-                  </a>
-                </td>
-              </tr>-->
               <tr>
                 <td class="setting-title">用户名</td>
                 <td>
@@ -152,60 +125,7 @@ export default {
     Header
   },
   methods: {
-    // 打开图片上传
-    uploadHeadImg: function() {
-      // this.$el.querySelector('.hiddenInput').click()
-      let userid = sessionStorage.getItem("UserID");
-      let token = sessionStorage.getItem("token");
-      console.log(this.users.imageTitle)
-      uploadtu({
-        file: this.iaimg,
-        userid: userid,
-        token: token
-      }).then(res => {
-        console.log(res.data);
-      });
-    },
-    // 将头像显示  获取路径给iaimg
-    handleFile: function(e) {
-      let $target = e.target || e.srcElement;
-      let file = $target.files[0];
-      this.iaimg=file.name;
-      var reader = new FileReader();
-      reader.onload = data => {
-        let res = data.target || data.srcElement;
-        this.users.imageTitle = res.result;
-      };
-      reader.readAsDataURL(file);
-    },
-    // 上传头像
-    // uploadHeadImg(e) {
-    //   if (e.target.files[0]) {
-    //     this.$notify({
-    //       message: "系统正在校验中，请重新选择图片",
-    //       offset: 100,
-    //       type: "warning",
-    //       duration: 3000
-    //     });
-    //     this.iaimg = e.target.files[0].name;
-    //     let userid = sessionStorage.getItem("UserID");
-    //     let token = sessionStorage.getItem("token");
-    //     uploadtu({
-    //       iaimg: this.iaimg,
-    //       userid: userid,
-    //       token: token
-    //     }).then(res => {
-    //       console.log(res.data);
-    //     });
-    //   } else {
-    //     this.$notify({
-    //       message: "请再次点击进行上传",
-    //       offset: 100,
-    //       type: "warning",
-    //       duration: 3000
-    //     });
-    //   }
-    // },
+
     // 获取个人信息
     inserusers() {
       let username = sessionStorage.getItem("userName");
@@ -220,7 +140,7 @@ export default {
         }
       });
     },
-    // 修改个人信息   待做
+    // 修改个人信息 
     updata(users) {
       let token = sessionStorage.getItem("token");
       let UserId = sessionStorage.getItem("UserID");
@@ -237,10 +157,10 @@ export default {
         userName: userName
       }).then(res => {
         this.$notify({
-          message: "修改个人信息成功",
+          message: "修改个人信息成功，请重新登录",
           offset: 100,
           type: "success",
-          duration: 1500
+          duration: 5000
         });
       });
     },
