@@ -27,4 +27,8 @@ function authers(){
 function fenmy(data){
     return instance.post('http://39.107.105.166:8081/getFans',data)
 }
-export {pingluned,guanzuo,followmy,zanfab,hotmen,authers,fenmy}
+// 获取关注人
+function followmyone(username,userId) { 
+    return instance.get('http://39.107.105.166:8081/getPersonMsg?username='+username+'&userid='+userId)
+ }
+export {pingluned,guanzuo,followmy,followmyone,zanfab,hotmen,authers,fenmy}

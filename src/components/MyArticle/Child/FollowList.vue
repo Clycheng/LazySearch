@@ -9,10 +9,7 @@
         >
           <li v-for="(item,index) in author" :key="index" :class="state?'guan2':'guan1'">
             <a class="avatar" href="/u/37dc24d75db2">
-              <img
-                :src="item.imageTitle"
-                alt="180"
-              />
+              <img :src="item.imageTitle" alt="180" />
             </a>
             <div class="info">
               <a class="name" href="/u/37dc24d75db2">{{item.name}}</a>
@@ -37,7 +34,7 @@
 
 <script>
 /* eslint-disable */
-import { followmy } from "../../../api/text/pin";
+import { followmy, followmyone } from "../../../api/text/pin";
 import { setTimeout } from "timers";
 export default {
   name: "FollowList",
@@ -46,12 +43,9 @@ export default {
       state: null,
       author: [
         {
-          name: "",
-          Follownum: "",
-          Fansnum: "",
-          sex: "",
-          age: "",
-          phone: ""
+          mutual: "",
+          userId: "",
+          username: ""
         }
       ]
     };
@@ -77,10 +71,21 @@ export default {
           this.author = res.data.data;
         }
       });
+    },
+    myfollowone() {
+      let usernames = this.username;
+      let UserIDs = this.userId;
+      followmyone({
+        username: usernames,
+        userId: UserIDs
+      }).then(res => {
+        this.author = res.data.data;
+      });
     }
   },
   mounted() {
     this.myfollow();
+    this.myfollowone();
   }
 };
 </script>

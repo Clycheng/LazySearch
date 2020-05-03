@@ -56,12 +56,12 @@ export default {
         username: username,
         userId: UserID
       }).then(res => {
-        if (res.data.data == "您还没有一个关注哦") {
+        if (res.data.data == "您还没有一个粉丝哦") {
           this.$notify({
             message: "您还没有粉丝！",
             offset: 100,
             type: "warning",
-            duration: 1500
+            duration: 3000
           });
           this.state = true;
         } else {

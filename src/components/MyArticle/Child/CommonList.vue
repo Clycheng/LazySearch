@@ -9,7 +9,7 @@
       <li v-for="(item,index) in list" :key="index" class="list-item infinite-list-item">
         <el-container>
           <el-aside width="200px">
-            <img class="aside-img" :src="item.Img_Title" alt />
+            <img class="aside-img" width="200px" :src="item.Img_Title" alt />
           </el-aside>
           <el-main>
           <router-link :to='{ name: "Details", query: { id: item.ID }}'> <h2>{{item.post_title}}</h2></router-link>
@@ -17,7 +17,7 @@
             <div class="details-warp">
               <span style="color:#66B1FF;font-size:12px">
                 <i class="Lazy Lazyyuedu1"></i>
-                123
+                {{item.Ready_Num}}
               </span>
               <router-link to="#">{{item.author_name}}</router-link>
               <span style="color:#B4BBCE;font-size:12px">
